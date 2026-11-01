@@ -1,6 +1,6 @@
 ---
 name: init
-description: Set up the pg workflow in the current repository - .pg/ marker, docs (workflow, backlog, ADRs, standards, feature templates) and a "pg workflow" section in CLAUDE.md with the project's check command. Use once per repository, before /pg:spec or /pg:quick, including a fresh take-home or live-coding repo.
+description: Set up the pg workflow in the current repository - .pg/ marker, docs (workflow, backlog, ADRs, feature templates), standards (general, testing, security, plus ai, privacy, performance and accessibility when the project needs them) and a "pg workflow" section in CLAUDE.md with the project's check command. Use once per repository, before /pg:spec or /pg:quick, including a fresh take-home or live-coding repo.
 argument-hint: "[--minimal]"
 ---
 
@@ -17,9 +17,19 @@ Prepares a repository for the other `pg` skills. Templates are in this plugin's 
    - `.pg/` with `state/` (add `.pg/state/` to `.gitignore`),
    - `docs/workflow.md`, `docs/backlog.md`, `docs/adr/README.md`, `docs/adr/template.md`,
    - `docs/features/_templates/{spec,plan,review}.md`,
-   - `docs/standards/{general,testing,security}.md`,
+   - `docs/standards/{general,testing,security}.md`, always,
+   - the conditional standards below, each only when its signal is found, with the evidence in your list ("ai.md: `openai` in package.json"),
    - `docs/standards/<stack>.md`: a short draft of stack rules, written by you from what the project already does (linters, formatter, folder layout, test framework), each rule with an id. Mark it `Status: draft`.
    With `--minimal` (a time-boxed task), create only `.pg/`, `docs/workflow.md` and the feature templates.
+
+   | File | Copy when the project |
+   |---|---|
+   | `ai.md` | depends on a model SDK or API client (Anthropic, OpenAI, Google GenAI, Mistral, Cohere, Ollama, LangChain, LlamaIndex, Vercel AI SDK and similar), or calls a model endpoint |
+   | `privacy.md` + `docs/data-inventory.md` | stores data about people: user or account models, sign-up or auth, email, phone, address, payment, health or location fields, analytics or tracking. When unsure, ask |
+   | `performance.md` | is a service or an app: has a server, a database, a job queue or a UI. Skip for small libraries and CLIs |
+   | `accessibility.md` | has a web or mobile UI (React, Vue, Svelte, Angular, server-rendered HTML templates, React Native, Flutter) |
+
+   Mention the files you did not copy and why, so the human can ask for them. A file can be added later by running `/pg:init` again; it only adds what is missing.
 5. Check the test path defaults against the project (the globs are in `hooks/lib/test-paths.sh` in this plugin). If the project keeps tests elsewhere, write `.pg/test-paths` with one glob per line.
 6. Add this section to `CLAUDE.md` (create the file if needed), filled in:
 
