@@ -11,7 +11,8 @@ failed=0
 for file in "$here"/test-*.sh; do
   [[ -f "$file" ]] || continue
   for name in $(bash -c "source '$file'; declare -F" | awk '{print $3}' | grep '^test_'); do
-    if (
+    # Not in an `if`: bash ignores `set -e` there, and a failed assertion must end the test.
+    (
       PROJECT="$(mktemp -d)"
       export PROJECT
       trap 'rm -rf "$PROJECT"' EXIT
@@ -21,7 +22,8 @@ for file in "$here"/test-*.sh; do
       source "$file"
       set -e
       "$name"
-    ); then
+    )
+    if [[ $? -eq 0 ]]; then
       passed=$((passed + 1))
     else
       echo "FAIL $(basename "$file") $name"
