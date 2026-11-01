@@ -1,0 +1,10 @@
+{
+  "name": "pg",
+  "version": "0.1.0",
+  "description": "Spec-first, test-first development workflow: spec, plan, red/green TDD with a guard hook, independent review, ship.",
+  "author": {
+    "name": "Przemysław Golec"
+  },
+  "license": "MIT",
+  "keywords": ["workflow", "tdd", "review", "spec"]
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "pg-toolkit",
+  "description": "Personal Claude Code toolkit of Przemysław Golec.",
+  "owner": {
+    "name": "Przemysław Golec"
+  },
+  "plugins": [
+    {
+      "name": "pg",
+      "description": "Spec-first, test-first development workflow: spec, plan, red/green TDD with a guard hook, independent review, ship.",
+      "source": "./plugins/pg",
+      "category": "workflow"
+    }
+  ]
+}
