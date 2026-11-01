@@ -23,7 +23,8 @@ for file in "$here"/test-*.sh; do
       set -e
       "$name"
     )
-    if [[ $? -eq 0 ]]; then
+    result=$?
+    if [[ $result -eq 0 ]]; then
       passed=$((passed + 1))
     else
       echo "FAIL $(basename "$file") $name"

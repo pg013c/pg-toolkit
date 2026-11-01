@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 # Helpers for the hook tests. $PROJECT is a fresh temporary directory per test.
+# run_hook sets globals the test files read.
+# shellcheck disable=SC2034
 
 # run_hook <script> <file path> : runs a hook with a tool-call payload for <file path>;
 # sets $status, $out and $err.

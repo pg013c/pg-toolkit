@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 # format-on-edit: after an edit, run the formatter of the nearest project that owns the file.
+# status, out and err are set by run_hook in tests/lib.sh.
+# shellcheck disable=SC2154
 
 # fake_tool <dir> <name> : a stand-in formatter that records its arguments in $PROJECT/.calls.
 fake_tool() {

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 # tdd-guard: while a project's TDD phase is "green", edits to test files are refused.
+# status, out and err are set by run_hook in tests/lib.sh.
+# shellcheck disable=SC2154
 
 test_allows_everything_without_pg_directory() {
   run_hook tdd-guard.sh "$PROJECT/tests/test_app.py"
