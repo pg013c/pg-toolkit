@@ -48,9 +48,25 @@ CLAUDE.md                  a "pg workflow" section: check command, test command,
 docs/workflow.md           the process
 docs/backlog.md            features F-01, F-02, ... and their status
 docs/adr/                  decision records and their index
-docs/standards/            general, testing and security rules with ids, plus a drafted stack file
+docs/standards/            rules with ids the plan, the code and the review follow (below)
+docs/data-inventory.md     personal data and processors, when privacy.md is copied
 docs/features/_templates/  spec, plan and review templates
 ```
+
+Standards, each rule with an id the reviewer cites:
+
+| File | Ids | Copied when |
+|---|---|---|
+| `general.md` | `GEN-` | always |
+| `testing.md` | `TEST-` | always |
+| `security.md` | `SEC-` | always |
+| `ai.md` | `AI-` | the project depends on a model SDK or calls a model API |
+| `privacy.md` | `PRIV-` | the project stores data about people (GDPR, plus the AI Act for AI features); asks when unsure |
+| `performance.md` | `PERF-` | the project is a service or app with a server, database, jobs or UI |
+| `accessibility.md` | `A11Y-` | the project has a web or mobile UI (WCAG 2.2 AA) |
+| `<stack>.md` | your prefix | always, drafted from what the project already does |
+
+`/pg:init` lists the files it skipped and why. Run it again later to add one; it only adds what is missing. The files are the project's own from then on: edit them with the team.
 
 Each feature then gets `docs/features/F-xx-<name>/` with `spec.md`, `plan.md` and `review.md`, and a branch `feat/F-xx-<name>`. `--minimal` creates only `.pg/`, `docs/workflow.md` and the feature templates.
 
@@ -78,7 +94,7 @@ Both act only in a repository with a `.pg/` directory.
 
 ## Agent
 
-- **pg:reviewer**: read-only, started by `/pg:review` with only the git range, the spec, the plan and the standards, never the conversation that built the change. Returns findings with severity, location, the rule broken and a fix.
+- **pg:reviewer**: read-only, started by `/pg:review` with only the git range, the spec, the plan and the standards, never the conversation that built the change. Checks correctness, security, AI, privacy, design, performance, accessibility, tests and maintainability, against whichever standards the project has. Returns findings with severity, location, the rule broken and a fix.
 
 ## Development
 
