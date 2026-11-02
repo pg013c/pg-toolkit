@@ -96,6 +96,10 @@ Both act only in a repository with a `.pg/` directory.
 
 - **pg:reviewer**: read-only, started by `/pg:review` with only the git range, the spec, the plan and the standards, never the conversation that built the change. Checks correctness, security, AI, privacy, design, performance, accessibility, tests and maintainability, against whichever standards the project has. Returns findings with severity, location, the rule broken and a fix.
 
+## Routines
+
+[`routines/`](routines/README.md) holds prompts for scheduled tasks in the Claude desktop app, separate from the plugin: a daily AI digest and a daily home country and world digest, each posted to a Slack channel through a webhook. The routines README covers the Slack setup, the env file and its variables, and keeping the Mac awake.
+
 ## Development
 
 ```bash
