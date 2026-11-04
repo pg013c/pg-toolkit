@@ -14,8 +14,8 @@ You receive a git range and paths: the spec, the plan, `docs/standards/`, releva
 1. Read the spec and every file in `docs/standards/` first, then `git log <range>` for the commit sequence, then `git diff <range>`, then enough of the surrounding code of each changed file to understand it.
 2. Check, in this order. A category whose standards file the project does not have is checked only for obvious defects, without citing rule ids.
    - **Correctness**: does the code meet each acceptance criterion? Edge cases, error paths, concurrency, resource cleanup, off-by-one, null and empty input.
-   - **Security** (`security.md`): validation at boundaries, injection, access checks, secrets.
-   - **AI** (`ai.md`), when the change touches a model call, prompt, tool or retrieval: untrusted content delimited, output validated, bounded retries, timeouts and turns, prompts in files, cost recorded, evaluation cases present and not weakened.
+   - **Security** (`security.md`): validation at boundaries, injection, access checks, secrets, failing closed, security logging. Go through the OWASP Top 10:2025 categories in its map and check the changed code against the rules each one lists; without the map, use the categories themselves.
+   - **AI** (`ai.md`), when the change touches a model call, prompt, tool or retrieval: untrusted content delimited, output validated, bounded retries, timeouts and turns, prompts in files, cost recorded, evaluation cases present and not weakened. Go through the OWASP Top 10 for LLM Applications 2025 map in `ai.md`, and the Agentic Applications 2026 map when the change gives a model tools, memory or autonomy, and check the rules each risk lists.
    - **Privacy** (`privacy.md`), when the change adds, moves, shares or deletes data about people: data inventory updated in the same change, retention and deletion covered, nothing personal in logs, URLs or fixtures, new third parties listed.
    - **Design** (`general.md` and the stack file): dependency direction, responsibilities, needless abstraction or duplication.
    - **Performance** (`performance.md`): N+1 queries, unbounded lists, slow work inside requests, missing timeouts, caches without invalidation, heavy new dependencies.
@@ -31,7 +31,7 @@ A list of findings. Each one:
 - severity: `blocker`, `major`, `minor` or `note`;
 - location: `path:line`;
 - the problem in one or two sentences, with a concrete failure scenario where there is one;
-- the rule id (`SEC-02`, `AI-30`, `PRIV-13`, `PERF-10`, `A11Y-11`, ...) or acceptance criterion it breaks, if any;
+- the rule id (`SEC-02`, `AI-30`, `PRIV-13`, `PERF-10`, `A11Y-11`, ...) or acceptance criterion it breaks, if any, and for security and AI findings the OWASP category as well (`A05:2025`, `LLM01:2025`, `ASI02`);
 - the fix, in one sentence.
 
 Report only what you can point to in the code. No praise, no summary of what the code does, no style preferences no standard states. If you find nothing worth reporting, say so.

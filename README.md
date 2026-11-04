@@ -59,8 +59,8 @@ Standards, each rule with an id the reviewer cites:
 |---|---|---|
 | `general.md` | `GEN-` | always |
 | `testing.md` | `TEST-` | always |
-| `security.md` | `SEC-` | always |
-| `ai.md` | `AI-` | the project depends on a model SDK or calls a model API |
+| `security.md` | `SEC-` | always (mapped to the OWASP Top 10:2025 and ASVS 5.0) |
+| `ai.md` | `AI-` | the project depends on a model SDK or calls a model API (mapped to the OWASP Top 10 for LLM and for Agentic Applications) |
 | `privacy.md` | `PRIV-` | the project stores data about people (GDPR, plus the AI Act for AI features); asks when unsure |
 | `performance.md` | `PERF-` | the project is a service or app with a server, database, jobs or UI |
 | `accessibility.md` | `A11Y-` | the project has a web or mobile UI (WCAG 2.2 AA) |
@@ -96,7 +96,7 @@ Both act only in a repository with a `.pg/` directory.
 
 ## Agent
 
-- **pg:reviewer**: read-only, started by `/pg:review` with only the git range, the spec, the plan and the standards, never the conversation that built the change. Checks correctness, security, AI, privacy, design, performance, accessibility, tests and maintainability, against whichever standards the project has. Returns findings with severity, location, the rule broken and a fix.
+- **pg:reviewer**: read-only, started by `/pg:review` with only the git range, the spec, the plan and the standards, never the conversation that built the change. Checks correctness, security and AI (against the OWASP lists the standards map), privacy, design, performance, accessibility, tests and maintainability, against whichever standards the project has. Returns findings with severity, location, the rule broken and a fix.
 
 ## Routines
 
