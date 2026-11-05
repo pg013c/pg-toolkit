@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Routines (outside the plugin): `daily-ai-news` and `daily-news`, scheduled-task prompts for the Claude desktop app that post a morning digest to Slack through webhooks read from `~/.config/daily-news/webhooks.env`. Setup in [routines/README.md](routines/README.md).
+
 ## 0.2.0 (2026-11-01)
 
 - Standards: `ai.md`, `privacy.md` (GDPR and AI Act), `performance.md` and `accessibility.md` (WCAG 2.2 AA), plus a `docs/data-inventory.md` template.
