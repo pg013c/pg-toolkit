@@ -20,7 +20,7 @@ claude plugin install pg@pg-toolkit
 From a local clone. The plugin is read straight from the folder, so edits apply in the next new session:
 
 ```bash
-claude plugin marketplace add ~/pvsw/pg-toolkit
+claude plugin marketplace add <path to your clone>
 claude plugin install pg@pg-toolkit
 ```
 
@@ -85,7 +85,7 @@ The skills run the project's **check command** from `CLAUDE.md` (for example `ma
 | `/pg:quick` | A small fix or chore in one pass, test-first when behaviour changes. |
 | `/pg:adr` | A numbered architecture decision record. |
 | `/pg:new-command` | Adds one or more `/pg:*` commands to this toolkit from a description of what each should do, then commits on a branch and opens a pull request to `main`. |
-| `/pg:slack-triage` | Reads the Slack messages an instruction points at and lists the items in them: topic, quoted fragment, first analysis and the action for you. Read-only. |
+| `/pg:slack-triage` | Reads the Slack messages an instruction points at and writes a sectioned report in chat, one section per item: topic, quoted fragment, the concrete problem, first analysis and the action for you. Read-only. |
 
 ## Hooks
 
