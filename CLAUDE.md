@@ -11,8 +11,10 @@ A Claude Code marketplace with one plugin, `pg`: skills, an agent and hooks for 
 
 ## Rules
 
-- Everything is written from scratch. Never copy text or code from an employer's or client's toolkit, repository or document, and never name a client, employer, person or internal system. Ideas are fine; their wording is ours.
-- English, plain and short. No private data: no emails, tokens, client names or paths from other projects.
+- Everything is written from scratch. Never copy text or code from an employer's or client's toolkit, repository or document. Ideas are fine; their wording is ours.
+- The toolkit is universal and public: it knows nothing about the work it is used for. No names of projects, clients, companies, products, domains, tasks, tickets or people (the author's name in `LICENSE` and the plugin metadata is the only exception), and no mention of the author's other tools, apps, servers or local paths. Skills talk about "the user's task tool", never a specific one. Examples are generic and invented (`<person>`, "the public site", "#ops"), never taken from a real conversation or project.
+- Before every commit, check the diff for such details. `scripts/check.sh` also scans the repository for the terms listed in a local, untracked file (see Checks).
+- English, plain and short. No private data: no emails, tokens or paths from other projects.
 - Skills must work in any repository. They read project facts (check command, test paths) from the project, never assume a stack.
 - Hooks do nothing in a project without a `.pg/` directory, and never block on their own errors: a missing tool is a warning, not a refusal.
 - Hook changes are test-first: a `test(hooks): ...` commit with failing tests, then a `feat(hooks): ...` or `fix(hooks): ...` commit that does not touch `tests/`.
@@ -24,4 +26,6 @@ A Claude Code marketplace with one plugin, `pg`: skills, an agent and hooks for 
 scripts/check.sh
 ```
 
-Runs the hook tests, JSON validation, skill frontmatter checks and, when installed, `shellcheck` and `claude plugin validate`.
+Runs the hook tests, JSON validation, skill frontmatter checks, the private-terms scan and, when installed, `shellcheck` and `claude plugin validate`.
+
+The private-terms scan reads `~/.config/pg-toolkit/private-terms` (or the file in `$PG_PRIVATE_TERMS`): one case-insensitive extended regex per line, `#` for comments. It lives outside the repository so the terms themselves are never published; without the file the scan is skipped.
