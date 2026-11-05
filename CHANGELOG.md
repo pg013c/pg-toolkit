@@ -3,6 +3,8 @@
 ## Unreleased
 
 - Routines (outside the plugin): `daily-ai-news` and `daily-news`, scheduled-task prompts for the Claude desktop app that post a morning digest to Slack through webhooks read from `~/.config/daily-news/webhooks.env`. Setup in [routines/README.md](routines/README.md).
+- `/pg:new-command`: describe what a command should do; it proposes a name and its own paraphrase of the goal, waits for your approval, then writes the skill, updates the docs, runs the checks, commits on a branch and opens a pull request to `main`.
+- `/pg:slack-triage`: reads the Slack messages an instruction points at (a person, a channel, a time range) and lists one item per issue: topic, the quoted fragment, a first analysis and the action for you. Read-only.
 
 ## 0.2.0 (2026-11-01)
 

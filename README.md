@@ -6,7 +6,7 @@ My Claude Code toolkit: the skills, agent and hooks I carry from project to proj
 
 - Claude Code with plugin support (`claude plugin --help` works).
 - `git` and `jq` (the hooks read the tool call with `jq`; without it `tdd-guard` warns and does not protect tests).
-- Optional: `gh` for `/pg:ship` to open pull requests; the project's own formatters for `format-on-edit`.
+- Optional: `gh` for `/pg:ship` and `/pg:new-command` to open pull requests; a connected Slack integration for `/pg:slack-triage`; the project's own formatters for `format-on-edit`.
 
 ## Install
 
@@ -24,7 +24,7 @@ claude plugin marketplace add ~/pvsw/pg-toolkit
 claude plugin install pg@pg-toolkit
 ```
 
-Check it: `claude plugin details pg@pg-toolkit` lists 8 skills, 1 agent and 2 hooks.
+Check it: `claude plugin details pg@pg-toolkit` lists 10 skills, 1 agent and 2 hooks.
 
 Update an install from GitHub: `claude plugin marketplace update pg-toolkit`, then `claude plugin update pg@pg-toolkit`. Remove: `claude plugin uninstall pg@pg-toolkit`.
 
@@ -84,6 +84,8 @@ The skills run the project's **check command** from `CLAUDE.md` (for example `ma
 | `/pg:ship` | Proves every acceptance criterion, updates docs, opens the pull request after your yes. Without a git remote it writes `SUBMISSION.md` instead. |
 | `/pg:quick` | A small fix or chore in one pass, test-first when behaviour changes. |
 | `/pg:adr` | A numbered architecture decision record. |
+| `/pg:new-command` | Adds one or more `/pg:*` commands to this toolkit from a description of what each should do, then commits on a branch and opens a pull request to `main`. |
+| `/pg:slack-triage` | Reads the Slack messages an instruction points at and lists the items in them: topic, quoted fragment, first analysis and the action for you. Read-only. |
 
 ## Hooks
 
