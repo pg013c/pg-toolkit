@@ -24,7 +24,7 @@ claude plugin marketplace add ~/pvsw/pg-toolkit
 claude plugin install pg@pg-toolkit
 ```
 
-Check it: `claude plugin details pg@pg-toolkit` lists 8 skills, 1 agent and 2 hooks.
+Check it: `claude plugin details pg@pg-toolkit` lists 9 skills, 1 agent and 2 hooks.
 
 Update an install from GitHub: `claude plugin marketplace update pg-toolkit`, then `claude plugin update pg@pg-toolkit`. Remove: `claude plugin uninstall pg@pg-toolkit`.
 
@@ -84,6 +84,7 @@ The skills run the project's **check command** from `CLAUDE.md` (for example `ma
 | `/pg:ship` | Proves every acceptance criterion, updates docs, opens the pull request after your yes. Without a git remote it writes `SUBMISSION.md` instead. |
 | `/pg:quick` | A small fix or chore in one pass, test-first when behaviour changes. |
 | `/pg:adr` | A numbered architecture decision record. |
+| `/pg:new-command` | Adds one or more `/pg:*` commands to this toolkit from a description of what each should do, then commits on a branch and opens a pull request to `main`. |
 
 ## Hooks
 
