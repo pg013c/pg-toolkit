@@ -27,6 +27,25 @@ for dir in plugins/pg/skills/*/; do
   grep -qx "name: $name" "$dir/SKILL.md" 2>/dev/null || fail "$dir: name does not match the folder"
 done
 
+step "Private terms"
+# The terms live outside the repository, so naming them here would defeat the point.
+terms="${PG_PRIVATE_TERMS:-$HOME/.config/pg-toolkit/private-terms}"
+if [[ -f "$terms" ]]; then
+  patterns="$(mktemp)"
+  grep -vE '^[[:space:]]*(#|$)' "$terms" >"$patterns"
+  if [[ -s "$patterns" ]]; then
+    hits="$(git ls-files --cached --others --exclude-standard -z \
+      | xargs -0 grep -n -i -E -f "$patterns" -- 2>/dev/null)"
+    if [[ -n "$hits" ]]; then
+      echo "$hits"
+      fail "private terms found"
+    fi
+  fi
+  rm -f "$patterns"
+else
+  echo "skipped: no $terms"
+fi
+
 step "Hook tests"
 tests/run.sh || fail "hook tests"
 
