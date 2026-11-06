@@ -25,11 +25,11 @@ The argument describes the behaviour only. Where the toolkit lives, how a skill 
    - it names outside tools by capability ("a connected Slack integration", "`gh`") and says what to do when one is missing;
    - actions that send, publish, push, deploy or delete wait for the user's explicit yes, unless the description asks otherwise.
    A command that also needs an agent, hook or template follows `CLAUDE.md`; hook changes are test-first.
-8. Update the docs: a row per command in the README "Commands" table, the skill count in the README "Check it" line, and one line per command in `CHANGELOG.md` under `## Unreleased` (add that heading above the latest release if it is missing). Leave the version in `plugin.json` alone: a release is its own `chore: release x.y.z` commit.
+8. Update the docs: a row per command in the README "Commands" table, the skill count in the README "Check it" line, and one line per command in `CHANGELOG.md` under `## Unreleased` (add that heading above the latest release if it is missing). Leave the version in `plugin.json` alone: a release is its own `chore: release x.y.z` commit, made after the merge (see Versioning in `CLAUDE.md`).
 9. Run `scripts/check.sh` in the worktree and fix what fails. Then read the whole diff once more for anything step 7 forbids.
 10. Commit one command at a time, its skill with its README and CHANGELOG lines: `feat(skills): add /pg:<name>`.
 11. Push the branch (`git push -u origin <branch>`) and open a pull request to `main` with `gh pr create --base main`: what each command does, an example call for each, the decisions you made in step 5, and the checks that passed. Running this command is the go-ahead for this push and pull request; nothing else is pushed, and nothing is merged.
-12. Remove the worktree (`git -C <root> worktree remove <path>`); the branch stays. Report the pull request link and the new commands. They become available in a new session once the pull request is merged and the toolkit folder is on the updated `main`.
+12. Remove the worktree (`git -C <root> worktree remove <path>`); the branch stays. Report the pull request link and the new commands. They become available in a new session once the pull request is merged and the toolkit folder is on the updated `main`. Remind the user that, after the merge, a release makes them reach installs from GitHub, and offer to prepare it as `CLAUDE.md` describes.
 
 ## Rules
 
