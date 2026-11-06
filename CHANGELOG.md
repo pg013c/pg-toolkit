@@ -2,12 +2,15 @@
 
 ## Unreleased
 
+## 0.3.0 (2026-11-06)
+
 - Routines (outside the plugin): `daily-ai-news` and `daily-news`, scheduled-task prompts for the Claude desktop app that post a morning digest to Slack through webhooks read from `~/.config/daily-news/webhooks.env`. Setup in [routines/README.md](routines/README.md).
 - `/pg:new-command`: describe what a command should do; it proposes a name and its own paraphrase of the goal, waits for your approval, then writes the skill, updates the docs, runs the checks, commits on a branch and opens a pull request to `main`.
 - `/pg:slack-triage`: reads the Slack messages an instruction points at (a person, a channel, a time range) and writes a report in chat with one section per issue: topic, the quoted fragment, the problem stated concretely, a first analysis and the action for you. Read-only.
 - `/pg:audit-branch`: audits a branch against a base (default `origin/main`) in a temporary worktree, using the project's own standards and compliance files first and the toolkit's standards where they are missing, and writes a report in chat with a merge-readiness percentage, risk per area, verified findings and what to do before merging. Read-only.
 - `/pg:ideate`: give it an idea for an app, a game or a tool and it writes a sectioned report in chat - how it understands the idea, what is strong and weak, gaps, two or three ways to build it, directions to grow and extra features with wild cards - then refines it round by round. Nothing is built or written.
 - `/pg:build`: give it a PRD and it splits it into features, then runs each one through the whole workflow - spec, plan, tdd step by step, review, ship - with every stage in its own subagent on the Sonnet model. You approve the split, each spec, each plan and each review triage; each push and pull request waits for your yes.
+- Versioning rules in the toolkit's `CLAUDE.md`: pull requests add changelog lines only, and a tagged release with GitHub release notes follows each merge that users would notice. `/pg:new-command` reminds you to release after the merge.
 - `security.md` takes the OWASP Top 10:2025 and ASVS 5.0 as its baseline and maps every Top 10 category to its rules. New rules close the gaps: SEC-13 (fail closed), SEC-14 (abuse cases for a new trust boundary), SEC-40 (hardened configuration), SEC-41 (security events logged and alerted).
 - `ai.md` maps the OWASP Top 10 for LLM Applications 2025 and the Top 10 for Agentic Applications 2026 to its rules. New rules: AI-04 (pinned model and tool sources), AI-12 (no secrets in system prompts), AI-24 (the user's permissions, scoped credentials), AI-25 (traceable index and memory content), AI-26 (sandboxed generated code), AI-27 (confirmations show the real action), AI-34 (agent tool calls logged, agent can be stopped); AI-31 also caps input size.
 - `pg:reviewer` checks security and AI changes against those OWASP maps and cites the OWASP category next to the rule id.
