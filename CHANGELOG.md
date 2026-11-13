@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- `/pg:brainstorm`: give it an idea and it generates as many related ideas as it can - features, variants, related products, directions to grow, markets, ways to earn and wild cards - from several subagents with different creative lenses, merged into numbered clusters in chat with a short list worth a closer look. Later rounds give more, expand one idea, deepen a cluster or combine ideas. Nothing is built or sent.
+
 ## 0.3.0 (2026-11-06)
 
 - Routines (outside the plugin): `daily-ai-news` and `daily-news`, scheduled-task prompts for the Claude desktop app that post a morning digest to Slack through webhooks read from `~/.config/daily-news/webhooks.env`. Setup in [routines/README.md](routines/README.md).
