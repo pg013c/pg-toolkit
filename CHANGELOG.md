@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- `/pg:prd`: give it an idea, and optionally notes, code or old documents, and it interviews you as a principal architect until the spec is complete - business goal and MVP, tech stack, data model, flows and architecture, external dependencies, edge cases and non-functional requirements - pointing out bottlenecks, proposing options with a recommendation and ending every reply with a readiness percentage. On your command it writes a PRD/BRD for a coding agent in one markdown code block, ready for `/pg:build`.
+
 ## 0.4.0 (2026-11-13)
 
 - `/pg:brainstorm`: give it an idea and it generates as many related ideas as it can - features, variants, related products, directions to grow, markets, ways to earn and wild cards - from several subagents with different creative lenses, merged into numbered clusters in chat with a short list worth a closer look. Later rounds give more, expand one idea, deepen a cluster or combine ideas. Nothing is built or sent.
