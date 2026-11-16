@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.5.0 (2026-11-16)
+
 - `/pg:prd`: give it an idea, and optionally notes, code or old documents, and it interviews you as a principal architect until the spec is complete - business goal and MVP, tech stack, data model, flows and architecture, external dependencies, edge cases and non-functional requirements - pointing out bottlenecks, proposing options with a recommendation and ending every reply with a readiness percentage. On your command it writes a PRD/BRD for a coding agent in one markdown code block, ready for `/pg:build`.
 
 ## 0.4.0 (2026-11-13)
