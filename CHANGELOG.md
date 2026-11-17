@@ -2,7 +2,9 @@
 
 ## Unreleased
 
+- `/pg:discuss`: tell it the task you have to do and it talks it through with you - how it understands it, two or three approaches with a recommendation, risks, edge cases and questions, reading the repository read-only when the task is about it - round by round, ending with a summary of what was agreed. No code, no files, no artifacts.
 - `/pg:improve-prompt`: give it a prompt, or a file holding one, and it rewrites it so a model understands it without guessing - goal and context added, a clear structure, vague words made concrete, contradictions removed - and returns it in one copyable block with what changed and why, plus questions where it had to guess. Later rounds refine it. It never runs the prompt.
+
 ## 0.5.0 (2026-11-16)
 
 - `/pg:prd`: give it an idea, and optionally notes, code or old documents, and it interviews you as a principal architect until the spec is complete - business goal and MVP, tech stack, data model, flows and architecture, external dependencies, edge cases and non-functional requirements - pointing out bottlenecks, proposing options with a recommendation and ending every reply with a readiness percentage. On your command it writes a PRD/BRD for a coding agent in one markdown code block, ready for `/pg:build`.
