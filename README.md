@@ -24,7 +24,7 @@ claude plugin marketplace add <path to your clone>
 claude plugin install pg@pg-toolkit
 ```
 
-Check it: `claude plugin details pg@pg-toolkit` lists 15 skills, 1 agent and 2 hooks.
+Check it: `claude plugin details pg@pg-toolkit` lists 17 skills, 1 agent and 2 hooks.
 
 Update an install from GitHub: `claude plugin marketplace update pg-toolkit`, then `claude plugin update pg@pg-toolkit`. Remove: `claude plugin uninstall pg@pg-toolkit`.
 
@@ -91,6 +91,8 @@ The skills run the project's **check command** from `CLAUDE.md` (for example `ma
 | `/pg:brainstorm` | Generates as many ideas as possible around yours: features, variants, related products, directions to grow, markets, ways to earn and wild cards, from several subagents with different creative lenses, merged into numbered clusters in chat. Later rounds give more, expand or combine ideas. Writes nothing. |
 | `/pg:build` | Builds a whole PRD: splits it into features, then takes each one through spec, plan, tdd, review and ship, every stage in its own Sonnet subagent. You approve the split, each spec, each plan and each review triage; pushing waits for your yes. |
 | `/pg:prd` | Turns an idea, and any notes, code or old documents about it, into a build-ready PRD/BRD for a coding agent through an iterative interview: checks six areas, points out bottlenecks, proposes options with a recommendation and ends every reply with a readiness percentage. On your command writes the document in one markdown block. Writes nothing without your yes. |
+| `/pg:improve-prompt` | Rewrites a prompt as a prompt engineer so a model understands it without guessing: goal, context, structure, constraints, output format and definition of done. Returns the improved prompt in one copyable block with what changed and why, refined in later rounds. Writes nothing. |
+| `/pg:discuss` | Talks a task through before doing it: how it understands the task, two or three approaches with pros and cons, a recommendation, risks and questions, grounded read-only in the repository. Continued round by round, ends with a summary of what was agreed. No code, files or artifacts. |
 
 ## Hooks
 
