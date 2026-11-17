@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.6.0 (2026-11-17)
+
 - `/pg:discuss`: tell it the task you have to do and it talks it through with you - how it understands it, two or three approaches with a recommendation, risks, edge cases and questions, reading the repository read-only when the task is about it - round by round, ending with a summary of what was agreed. No code, no files, no artifacts.
 - `/pg:improve-prompt`: give it a prompt, or a file holding one, and it rewrites it so a model understands it without guessing - goal and context added, a clear structure, vague words made concrete, contradictions removed - and returns it in one copyable block with what changed and why, plus questions where it had to guess. Later rounds refine it. It never runs the prompt.
 
