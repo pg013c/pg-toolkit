@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- `/pg:improve-prompt`: give it a prompt, or a file holding one, and it rewrites it so a model understands it without guessing - goal and context added, a clear structure, vague words made concrete, contradictions removed - and returns it in one copyable block with what changed and why, plus questions where it had to guess. Later rounds refine it. It never runs the prompt.
 ## 0.5.0 (2026-11-16)
 
 - `/pg:prd`: give it an idea, and optionally notes, code or old documents, and it interviews you as a principal architect until the spec is complete - business goal and MVP, tech stack, data model, flows and architecture, external dependencies, edge cases and non-functional requirements - pointing out bottlenecks, proposing options with a recommendation and ending every reply with a readiness percentage. On your command it writes a PRD/BRD for a coding agent in one markdown code block, ready for `/pg:build`.
