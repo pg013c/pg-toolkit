@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Removed `routines/` (the daily digest prompts). They were never part of the plugin and are no longer maintained here.
+
+After updating: if you created scheduled tasks from `routines/`, they keep working; copy the prompts from the 0.6.0 tag if you want them again.
+
 ## 0.6.0 (2026-11-17)
 
 - `/pg:discuss`: tell it the task you have to do and it talks it through with you - how it understands it, two or three approaches with a recommendation, risks, edge cases and questions, reading the repository read-only when the task is about it - round by round, ending with a summary of what was agreed. No code, no files, no artifacts.
