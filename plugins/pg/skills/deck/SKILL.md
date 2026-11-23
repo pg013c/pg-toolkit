@@ -8,22 +8,25 @@ argument-hint: "<topic, file or folder> [--minutes <n>] [--out <dir>]"
 
 ## Phase 1: outline
 
-1. Frame it. Audience, the one thing they should remember, the length (from `--minutes`, else ask once with a guess; about one slide per one to two minutes), the language, and the setting (live talk, sent as a file, workshop). Read the material given: a file, a folder, a report, the repository.
+1. Frame it: audience, the one thing they should remember, the length, the language and the setting (live talk, sent as a file, workshop). Ask once, in a single message, only for what the arguments and the material do not give, each with a proposed default. Aim for about 0.8 slides per minute, title and closing included. Read the material given: a file, a folder, a report, the repository; when they disagree, trust what you checked in the repository over its README, and leave out counts you cannot verify.
 2. Write `outline.md` in the output folder (`--out`, else `docs/decks/<slug>/`):
    - the title, audience, length and the one-sentence takeaway;
-   - per slide: number, a headline that states the point as a sentence (not a label), the content (at most about five short bullets, a diagram, a code snippet or a number), the speaker notes, and the source for any fact or figure;
+   - slide 1 is the title slide: the deck title, with the takeaway as its subtitle;
+   - per other slide: number, a headline that states the point as a sentence (not a label), the content (at most about five short bullets, a diagram, a code snippet or a number), the speaker notes, and the source for any fact or figure;
    - the arc: opening that says why it matters, the body, a closing slide that repeats the takeaway and the ask.
-3. Show the outline and wait. Revise it round by round until the user approves it. Nothing is built before that.
+   Example code, commits or scenarios are fine when marked "illustrative" in the notes.
+3. Show the headlines and the arc in chat with the path to `outline.md`, and wait. Revise it round by round until the user approves it. Nothing is built before that.
 
 ## Phase 2: build
 
 4. Build `index.html` next to the outline, one file with all CSS and JS inline and no network requests:
-   - 16:9 slides scaled to the window; arrow keys, space and Page Up/Down move, `Home`/`End` jump, the URL hash keeps the slide number, `n` toggles the speaker notes, `f` fullscreen;
-   - a print stylesheet: one slide per page, notes hidden, so the browser's "Save as PDF" gives a handout;
+   - slides authored on a fixed 1920×1080 canvas, scaled to the window with a CSS transform and letterboxed (no `vw`/`vh` font sizes); `lang` on `<html>`; a slide number `n / total`;
+   - keys: arrows, space and Page Up/Down move, `Home`/`End` jump, `n` toggles a notes panel with the current slide's notes (kept in an `<aside class="notes">` per slide; no popup windows), `f` fullscreen; keys pressed with Ctrl, Alt or Meta are ignored so browser shortcuts work, and handled keys call `preventDefault`; the URL hash keeps the slide number through `history.replaceState`, and an out-of-range hash is clamped;
+   - a print stylesheet: no transform, every slide at 1920×1080 with `break-after: page`, `@page { size: 1920px 1080px; margin: 0 }`, `print-color-adjust: exact`, notes hidden, so the browser's "Save as PDF" gives a handout;
    - a neutral theme in CSS variables (colors, fonts, spacing) at the top of the file so it can be restyled in one place; system fonts; contrast at least WCAG AA; readable from the back of a room (body text at least about 28px at 1080p);
    - diagrams as inline SVG or plain HTML, code with simple highlighting and no external libraries, images only when the user supplies them (embedded as data URIs, or next to the file when large).
-5. Check it: the HTML parses, every slide in the outline is present in order, no external URL is loaded, and the notes match. Open it in a browser when one is available and look at the first, a dense and the last slide.
-6. Report both paths and how to present and export it. Commit `docs(deck): <slug>` only after a yes.
+5. Check it: parse the HTML; compare each slide's headline and notes with the outline (exact, apart from the title slide); grep for `src=`, `href=`, `url(`, `@import` and `http` and expect no external hits. Open it in a browser when one is available and look at the first, a dense and the last slide; otherwise say it was not checked visually.
+6. Report both paths and how to present and export it. When the output is inside the repository, offer the commit `docs(deck): <slug>` and make it only after a yes.
 
 ## Rules
 
