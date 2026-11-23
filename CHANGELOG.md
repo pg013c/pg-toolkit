@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+## 0.9.0 (2026-11-24)
+
+- `/pg:save-note` and `/pg:inbox-tidy`: save a self-contained, confidentiality-checked note into your notes repository, and sort its inbox by an approved plan that flags anything already pushed.
+- `/pg:draft-reply`: a reply drafted from the thread in the right voice, sent only after you approve the exact text.
+- `/pg:inbox-loop`: an inbox handled one item at a time with a reminder, a recommendation and a draft, outcomes recorded in a tracker; it never sends anything itself.
+- `/pg:progress`: a short session note in `docs/progress/` so work can be picked up without the conversation.
+- `/pg:cleanup`: stale local branches and worktrees listed with what would be lost, deleted only on approval, with restore commands.
+
 ## 0.8.0 (2026-11-23)
 
 - `/pg:report`: a plain-language report for a reader who does not read code, with every claim tied to an entry in a separate evidence file.
