@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.9.0 (2026-11-24)
+
 - `/pg:save-note` and `/pg:inbox-tidy`: save a self-contained, confidentiality-checked note into your notes repository, and sort its inbox by an approved plan that flags anything already pushed.
 - `/pg:draft-reply`: a reply drafted from the thread in the right voice, sent only after you approve the exact text.
 - `/pg:inbox-loop`: an inbox handled one item at a time with a reminder, a recommendation and a draft, outcomes recorded in a tracker; it never sends anything itself.
