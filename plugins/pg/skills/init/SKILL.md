@@ -39,6 +39,7 @@ Prepares a repository for the other `pg` skills. Templates are in this plugin's 
    - Check: `<check command>`
    - Tests only: `<test command>`
    - Main branch: `<main>`
+   - Eval: `<eval command>` (only when the project has an evaluation suite for model behaviour; otherwise leave this line out)
    - Process: docs/workflow.md. Standards: docs/standards/. Decisions: docs/adr/. Backlog: docs/backlog.md.
    ```
 
