@@ -20,25 +20,32 @@ argument-hint: "<security | ai | privacy | architecture | dead-code | performanc
 | `performance` | `performance.md` | N+1 queries, unbounded lists and payloads, slow work in request paths, missing timeouts and indexes, caches without invalidation, heavy dependencies on hot paths |
 | `accessibility` | `accessibility.md` | native elements and labels, keyboard and focus, contrast, errors tied to fields, announcements; runs the project's a11y tooling when it has any |
 
-`all` runs every area that applies: `ai` only when the code calls a model, `accessibility` only when it has a UI, `privacy` only when it handles data about people.
+`all` runs every area that applies: `ai` only when the code calls a model, `accessibility` only when it has a UI, `privacy` only when it handles data about people. A rule is reported under the area whose standard contains it, once, even when another area touches it.
+
+Finding id prefixes: `SEC`, `AI`, `PRIV`, `ARCH`, `DEAD`, `PERF`, `A11Y`.
 
 ## Steps
 
-1. Resolve the area and scope. Note the commit audited (`git rev-parse --short HEAD`) and whether the working tree is clean.
-2. Collect the rules, project first, as in the table. Note the source of each rule; the report cites it.
-3. Map the code in scope: languages, entry points, modules, data stores, external calls. For a large repository, split the work across read-only subagents (Explore) by module or by area, and keep their conclusions with file references.
-4. Run the read-only tools the project already has for the area (dependency audit, linters, type checker, unused-code finder, a11y checker). Record each as run, failed or not available. Never install new global tools; a missing one is reported.
-5. Verify every candidate finding yourself: open the cited lines, confirm the problem, and for dead code search for every way it could still be reached. Drop what you cannot confirm and count it.
-6. Give each finding: an id (`<AREA>-<n>`, for example `SEC-A3`, stable within the report), severity (`blocker`, `major`, `minor`, `note`), location (`path:line`), the rule broken and its source, evidence, a fix in one sentence, and a size (`S` under an hour, `M` up to a day, `L` more).
+1. Resolve the area and scope. Note the commit audited (`git rev-parse --short HEAD`) and whether the working tree is clean; a dirty tree is marked `(dirty)` in the report title.
+2. Collect the rules, project first, as in the table: `docs/standards/`, `CLAUDE.md`, ADRs, compliance files. A project's own copy of a standard is its source (`project`) even when it matches the toolkit's word for word; `toolkit` is cited only for rules the project lacks.
+3. Map the code the area is about, not the whole application: for `ai`, where model SDKs are imported, prompts, tool definitions, evaluation sets, cost and limits; for `privacy`, where data about people is stored, logged and sent. With more than about 150 source files in scope, split the work across read-only subagents (Explore) by module, and keep their conclusions with file references.
+4. Run the read-only tools the project already has for the area (dependency audit, linters, type checker, the tests of the modules in scope, unused-code finder, a11y checker). Record each as passed, failed, not available, or skipped with the reason. Never install new global tools. Never run anything that calls a model, sends messages or costs money, evaluation suites included: report the latest recorded evaluation run instead and list the suite under Not verified.
+5. Verify every candidate finding yourself: open the cited lines, confirm the problem, and for dead code search for every way it could still be reached. A candidate you disproved is dropped, counted and named in one line under Not verified. A candidate you could not check (it needs a running service, a secret, a model or production data) goes under Not verified and is not counted as dropped.
+6. Give each finding:
+   - an id `<PREFIX>-A<n>`, numbered in report order (`SEC-A3`, `AI-A1`); the `A` keeps it apart from rule ids such as `SEC-03`;
+   - a severity: `blocker` (exploitable now, a live secret, or data exposed today), `major` (a rule broken with real exposure), `minor` (a rule partly met), `note` (hygiene, or a dev-only path);
+   - a location: the main `path:line`, with any others listed on the finding's location line;
+   - the rule or rules broken, main one first, their source, and for `security` and `ai` the OWASP category where the standard maps one;
+   - evidence, a fix in one sentence, and a size (`S` under an hour, `M` up to a day, `L` more).
 7. Write the report in the language of the instruction:
 
    ```markdown
-   # Audit: <area> · <repository> @ <commit>
+   # Audit: <area> · <repository> @ <commit>[ (dirty)]
 
-   **Risk: <high | medium | low | none>** · <n> findings (<blockers>/<majors>/<minors>/<notes>), <m> dropped as unconfirmed
+   **Risk: <high | medium | low | none>** (high with a blocker, medium with a major, low with only minors and notes) · <n> findings (<blockers>/<majors>/<minors>/<notes>), <m> dropped as unconfirmed
    <two or three sentences: the state of the area and what matters most>
 
-   **Tools:** <tool> ✅ · <tool> ❌ <why> · <tool> not available
+   **Tools:** <tool> ✅ · <tool> ❌ <why> · <tool> not available · <tool> skipped <why>
 
    | Id | Severity | Finding | Location | Size |
    |---|---|---|---|---|
@@ -46,7 +53,7 @@ argument-hint: "<security | ai | privacy | architecture | dead-code | performanc
    ---
 
    ## <Id> [<severity>] <title>
-   `path:line` · <rule id> · source: <project | toolkit>
+   `path:line` (also <other locations>) · <rule ids, OWASP category> · source: <project | toolkit> · size <S | M | L>
    **Problem:** ...
    **Evidence:** ...
    **Fix:** ...
@@ -54,7 +61,8 @@ argument-hint: "<security | ai | privacy | architecture | dead-code | performanc
    ---
 
    ## Not verified
-   <what could not be checked and why: needs a running service, a secret, production data, a tool>
+   <what could not be checked and why: needs a running service, a secret, a model, production data, a tool>
+   <dropped as disproved: one line each>
    ```
 
 8. Without `--save`, the report goes in the chat reply. With `--save`, write it to `docs/audits/YYYY-MM-DD-<area>.md` and commit `docs(audit): <area>`.

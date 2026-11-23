@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 0.7.1 (2026-11-23)
+
+- `/pg:audit`: finding ids are `<PREFIX>-A<n>` (for example `AI-A1`) so they never clash with rule ids, with fixed prefixes per area; severity and risk are defined; evaluation suites and anything that costs money are never run; disproved and unchecked candidates are kept apart; each finding shows its size and any extra locations.
+- `/pg:research`: maps terms the code does not use to the closest concept and says so, checks every reference the answer and risks rest on and marks the rest `(unverified)`, keeps chat output short, and says which branch it commits on. `/pg:plan` summarises `research.md` and links to it.
+- `/pg:release-gate`: short finding titles, rule names when the project's rules have no ids, and no empty findings table in the summary.
+
 ## 0.7.0 (2026-11-23)
 
 - `/pg:research`: a read-only investigation of a question or a feature's area, with file references for what exists, what to reuse and what is risky. For a feature it writes `research.md`, and `/pg:plan` starts from it instead of researching again.

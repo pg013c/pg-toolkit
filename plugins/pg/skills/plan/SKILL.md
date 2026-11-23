@@ -11,7 +11,7 @@ Produces `plan.md` next to the approved `spec.md`, from `docs/features/_template
 ## Steps
 
 1. Read `spec.md`. If it is not `approved`, stop and say so.
-2. Research before designing. If `research.md` exists in the feature folder (from `/pg:research F-xx`), start from it, check that the code it cites has not changed since its commit, and only fill the gaps. Otherwise read the code the feature touches: entry points, modules, interfaces, existing tests, fakes and fixtures. When more than a handful of files are involved, use a read-only subagent (Explore) and keep only its conclusions. Write the Research section: what exists, what to reuse, what is risky.
+2. Research before designing. If `research.md` exists in the feature folder (from `/pg:research F-xx`), start from it, check that the code it cites has not changed since its commit, fill only the gaps, and make the Research section a short summary that links to it. Otherwise read the code the feature touches: entry points, modules, interfaces, existing tests, fakes and fixtures. When more than a handful of files are involved, use a read-only subagent (Explore) and keep only its conclusions. Write the Research section: what exists, what to reuse, what is risky.
 3. Design briefly against `docs/standards/` and the ADRs. A decision that needs an ADR is written with `/pg:adr` before the plan is approved.
 4. Split the work into steps that one red and one green commit can cover (roughly 15 to 60 minutes each). Order them so every green commit leaves the branch fit to merge:
    - interfaces and fakes before real adapters,
