@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.11.0 (2026-11-24)
+
 - `examples/`: one invented feature followed through spec, plan, TDD, review and ship, with the history it leaves.
 - `CONTRIBUTING.md` and `scripts/release.sh` (`prepare` makes the release commit, `publish` tags it and publishes the GitHub release).
 - The plugin has an icon, homepage and repository links; the README has CI, release and licence badges.
