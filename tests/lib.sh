@@ -29,3 +29,26 @@ assert_eq() {
 assert_contains() {
   [[ "$1" == *"$2"* ]] || { echo "  expected output to contain '$2', got: $1"; return 1; }
 }
+
+# run_bash_hook <script> <command> : runs a hook with a Bash tool-call payload; sets $status, $out and $err.
+run_bash_hook() {
+  local payload
+  payload="$(jq -n --arg c "$2" '{tool_name: "Bash", tool_input: {command: $c}}')"
+  set +e
+  out="$(cd "$PROJECT" && CLAUDE_PROJECT_DIR="$PROJECT" "$PLUGIN_ROOT/hooks/$1" <<<"$payload" 2>"$PROJECT/.stderr")"
+  status=$?
+  set -e
+  err="$(cat "$PROJECT/.stderr")"
+  rm -f "$PROJECT/.stderr"
+}
+
+# use_pg : marks the project as using pg.
+use_pg() {
+  mkdir -p "$PROJECT/.pg"
+}
+
+# git_repo_on <branch> : makes the project a git repository with one commit on <branch>.
+git_repo_on() {
+  git -C "$PROJECT" init -q -b "$1"
+  git -C "$PROJECT" -c user.email=t@t -c user.name=t commit -q --allow-empty -m init
+}
