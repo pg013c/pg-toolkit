@@ -1,5 +1,5 @@
 {
-  "description": "pg: protect tests during the TDD green phase and format edited files. Both act only in projects with a .pg/ directory.",
+  "description": "pg: protect tests during the TDD green phase, refuse risky git commands and commands that would stop the instance the user works with, and format edited files. All act only in projects with a .pg/ directory.",
   "hooks": {
     "PreToolUse": [
       {
@@ -8,6 +8,19 @@
           {
             "type": "command",
             "command": "\"${CLAUDE_PLUGIN_ROOT}/hooks/tdd-guard.sh\""
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/hooks/git-guard.sh\""
+          },
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/hooks/protect-instance.sh\""
           }
         ]
       }
