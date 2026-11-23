@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## 0.8.0 (2026-11-23)
+
+- `/pg:report`: a plain-language report for a reader who does not read code, with every claim tied to an entry in a separate evidence file.
+- `/pg:deck`: an outline you approve slide by slide, then one self-contained HTML presentation with keyboard navigation, speaker notes and a print-to-PDF layout.
+- `/pg:workshop`: a workshop or training plan in a folder of markdown files: outcomes, pre-survey, timed agenda, exercises, facilitator guide, feedback survey and follow-up.
+- `/pg:mock-interview`: interview practice with a chosen persona, one question at a time, ending with a readiness percentage and better answers built only from your own facts; `--talk` rehearses a presentation.
+
 ## 0.7.2 (2026-11-23)
 
 - `/pg:eval-run`, from a real run: picks the suite when a project has several eval scripts, accepts an SDK or CLI login as the credential, asks before the first paid run with the case count and cost, keeps stdout-only results, finds baselines wherever the project keeps them (also another model's), tells a failure from a regression and a model comparison, records the run in the project's existing place, and never reruns a paid suite without a yes.
