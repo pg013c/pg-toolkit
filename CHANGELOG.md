@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+## 0.10.0 (2026-11-24)
+
+- `git-guard` hook: in pg projects, refuses force pushes, pushes to the main branch and `gh pr merge`; `.pg/allow` lifts each rule (`force-push`, `push-main`, `merge`).
+- `protect-instance` hook: refuses killing a port, removing or moving a path, or running a command listed in `.pg/protected`, so the agent never stops the instance you work with.
+- `/pg:build --autopilot`: after you confirm it, the coordinator answers the four gates with its own recommendation and records each decision in the document it approves; it still stops for anything outside the workflow, blockers, ADR-worthy decisions and stages that stop on their own.
+
+After updating: in a pg project where the agent may merge pull requests or push to main, add `merge` or `push-main` to `.pg/allow`; otherwise those commands are now refused.
+
 ## 0.9.0 (2026-11-24)
 
 - `/pg:save-note` and `/pg:inbox-tidy`: save a self-contained, confidentiality-checked note into your notes repository, and sort its inbox by an approved plan that flags anything already pushed.
