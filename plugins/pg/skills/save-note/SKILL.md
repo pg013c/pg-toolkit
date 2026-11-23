@@ -8,7 +8,7 @@ argument-hint: "[what to save] [--repo <path>] [--folder <name>]"
 
 ## Steps
 
-1. Find the notes repository: `--repo`, else the one the user's `CLAUDE.md` names as their notes repository, else ask once. It must be a git repository; read its `README.md` and `CLAUDE.md` for its folders, file naming, frontmatter and rules about what may not be saved. Those rules win over the defaults below.
+1. Find the notes repository: `--repo`, else a path the user's global `CLAUDE.md` (then the project's) gives for a notes repository, else ask once. It must be a git repository; read its `README.md` and `CLAUDE.md` for its folders, file naming, frontmatter and rules about what may not be saved. Those rules win over the defaults below.
 2. Decide what to save: the argument, else the latest substantial result in the conversation (say which). Pick the folder by what it is, unless `--folder` says otherwise:
    - `ideas/`: something to build or try;
    - `analyses/`: research, comparisons, evaluations, with sources;
@@ -16,9 +16,9 @@ argument-hint: "[what to save] [--repo <path>] [--folder <name>]"
    - `notes/`: everything else worth keeping, such as learnings, how-tos and decisions;
    - `inbox/`: when unsure.
 3. Write it self-contained: someone reading it in a year, without this conversation, understands the context, the content and why it mattered. Keep the substance; drop the back-and-forth. Sources as links.
-4. Remove what may not leave its context: secrets, credentials, personal data, and any client, employer or colleague confidential material (names, data, code, contracts, prices, internal documents). Rewrite such content as the user's own generic idea or learning. If that is not possible without losing the point, stop and ask.
-5. Name it `YYYY-MM-DD-<slug>.md` (slug: two to five lowercase words). Add frontmatter in the repository's format, or by default: `title`, `date`, `type` (the folder), `tags`, `source` (where it came from, in general terms).
-6. Show the path and the first lines, then commit `<folder>: add <slug>` and push to the repository's default branch, unless its rules say otherwise. Report the path and the commit.
+4. Remove what may not leave its context: secrets, credentials, personal data, and any client, employer or colleague confidential material (names, data, code, contracts, prices, internal documents). Rewrite such content as the user's own generic idea or learning ("a client's app" becomes "an internal business application"). Then search the note for every name of a client, employer, project or person that appeared in the input; if any remains, fix it. If the point cannot survive without them, stop and ask.
+5. Name it `YYYY-MM-DD-<slug>.md` (slug: two to five lowercase words). Add frontmatter: exactly the repository's fields when it lists them, otherwise `title`, `date`, `type` (the folder), `tags`, `source` (where it came from, in general terms).
+6. Show the path and the first lines, then commit `<folder>: add <slug>` without waiting (unless step 4 dropped content, then ask first). Before pushing to the default branch, check `git log @{u}..HEAD`: if commits other than the note's are unpushed, list them and ask. Push unless the repository's rules say otherwise. Report the path and the commit.
 
 ## Rules
 
