@@ -27,6 +27,28 @@ for dir in plugins/pg/skills/*/; do
   grep -qx "name: $name" "$dir/SKILL.md" 2>/dev/null || fail "$dir: name does not match the folder"
 done
 
+step "README matches the plugin"
+skills=0
+for dir in plugins/pg/skills/*/; do
+  [[ -d "$dir" ]] || continue
+  skills=$((skills + 1))
+  name="$(basename "$dir")"
+  grep -q "^| \`/pg:$name\` |" README.md || fail "README Commands table has no row for /pg:$name"
+  grep -qE '^argument-hint: ".*"$' "$dir/SKILL.md" || fail "$dir/SKILL.md: argument-hint missing or not quoted"
+done
+agents=$(find plugins/pg/agents -name '*.md' | wc -l | tr -d ' ')
+[[ $agents -eq 1 ]] && agent_word=agent || agent_word=agents
+grep -q "lists $skills skills, $agents $agent_word" README.md \
+  || fail "README 'Check it' line does not say $skills skills, $agents $agent_word"
+# Backticks in the pattern below are literal.
+# shellcheck disable=SC2016
+while IFS= read -r row; do
+  name="${row#*/pg:}"; name="${name%%\`*}"
+  [[ -d "plugins/pg/skills/$name" ]] || fail "README lists /pg:$name, which has no skill folder"
+done < <(grep -oE '^\| `/pg:[a-z0-9-]+`' README.md)
+version="$(jq -r .version plugins/pg/.claude-plugin/plugin.json)"
+grep -q "^## $version " CHANGELOG.md || grep -q "^## Unreleased" CHANGELOG.md || fail "CHANGELOG has no section for $version"
+
 step "Private terms"
 # The terms live outside the repository, so naming them here would defeat the point.
 terms="${PG_PRIVATE_TERMS:-$HOME/.config/pg-toolkit/private-terms}"
@@ -58,7 +80,7 @@ fi
 
 step "claude plugin validate"
 if command -v claude >/dev/null; then
-  claude plugin validate . >/dev/null || fail "marketplace does not validate"
+  claude plugin validate --strict . >/dev/null || fail "marketplace does not validate"
   claude plugin validate plugins/pg >/dev/null || fail "plugin does not validate"
 else
   echo "skipped: claude not installed"

@@ -1,7 +1,7 @@
 ---
 name: plan
 description: Research the codebase and write the step-by-step implementation plan for an approved spec (docs/features/F-xx-*/plan.md); every step names its tests first and every acceptance criterion maps to a step. Use after /pg:spec is approved, before /pg:tdd.
-argument-hint: F-xx
+argument-hint: "F-xx"
 ---
 
 # /pg:plan F-xx
