@@ -24,7 +24,7 @@ claude plugin marketplace add <path to your clone>
 claude plugin install pg@pg-toolkit
 ```
 
-Check it: `claude plugin details pg@pg-toolkit` lists 25 skills, 2 agents and 2 hooks.
+Check it: `claude plugin details pg@pg-toolkit` lists 31 skills, 2 agents and 2 hooks.
 
 Update an install from GitHub: `claude plugin marketplace update pg-toolkit`, then `claude plugin update pg@pg-toolkit`. Remove: `claude plugin uninstall pg@pg-toolkit`.
 
@@ -95,6 +95,12 @@ The skills run the project's **check command** from `CLAUDE.md` (for example `ma
 | `/pg:deck` | A presentation in two approved steps: an outline slide by slide with speaker notes, then one self-contained HTML file that works offline, moves with the keyboard, shows notes and prints to PDF. |
 | `/pg:workshop` | Designs a workshop or training: outcomes, pre-survey, timed agenda, hands-on exercises on participants' own tasks, facilitator guide, feedback survey with a recommendation score and a follow-up plan. |
 | `/pg:mock-interview` | Practise a job interview with the assistant as a recruiter, manager, tech lead or CTO, one question at a time with real follow-ups, then a report with a readiness percentage and better answers built from your own facts. `--talk` rehearses a presentation and its Q&A. |
+| `/pg:save-note` | Saves an idea, analysis or artifact from the conversation into your notes repository: right folder, dated name, frontmatter, self-contained, confidential details rewritten out; commits and pushes. |
+| `/pg:inbox-tidy` | Sorts the notes repository's inbox: proposes a folder, name and frontmatter per item, flags confidential items with whether they were already pushed, and applies only the approved plan. |
+| `/pg:draft-reply` | Drafts a reply to a message or thread after reading it, in the right voice (first person and unsigned when you send it), and sends it only after you approve the exact text. |
+| `/pg:inbox-loop` | Works through an inbox with you: one list of everything waiting, then one item at a time with a reminder, a recommendation and a draft; records each outcome in a tracker. Never sends anything itself. |
+| `/pg:progress` | Writes a short progress note at the end of a session into `docs/progress/`: done, decided, open, next, each linked to commits and files. |
+| `/pg:cleanup` | Lists stale local branches and worktrees with what would be lost, and deletes only what you approve, printing how to restore each branch. |
 | `/pg:ideate` | Talks an idea for an app, a game or a tool through before anything is built: a report in chat with how the assistant understands it, strengths, weaknesses, gaps, ways to build it, directions to grow and extra features, refined in later rounds. Writes nothing. |
 | `/pg:brainstorm` | Generates as many ideas as possible around yours: features, variants, related products, directions to grow, markets, ways to earn and wild cards, from several subagents with different creative lenses, merged into numbered clusters in chat. Later rounds give more, expand or combine ideas. Writes nothing. |
 | `/pg:build` | Builds a whole PRD: splits it into features, then takes each one through spec, plan, tdd, review and ship, every stage in its own Sonnet subagent. You approve the split, each spec, each plan and each review triage; pushing waits for your yes. |
