@@ -1,10 +1,20 @@
 {
   "name": "pg",
   "version": "0.10.0",
-  "description": "Spec-first, test-first development workflow: spec, plan, red/green TDD with a guard hook, independent review, ship.",
+  "description": "Spec-first, test-first workflow for coding agents (spec, plan, red/green TDD, independent review, ship), plus audits, evals, a CI release gate, reports, decks, workshops and guard hooks.",
   "author": {
     "name": "Przemysław Golec"
   },
+  "homepage": "https://github.com/pg013c/pg-toolkit",
+  "repository": "https://github.com/pg013c/pg-toolkit",
   "license": "MIT",
-  "keywords": ["workflow", "tdd", "review", "spec"]
+  "keywords": [
+    "workflow",
+    "tdd",
+    "review",
+    "spec",
+    "evals",
+    "audit",
+    "agents"
+  ]
 }
