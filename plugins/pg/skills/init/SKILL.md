@@ -14,7 +14,7 @@ Prepares a repository for the other `pg` skills. Templates are in this plugin's 
 2. Detect the stack from manifest files (`package.json`, `pyproject.toml`, `go.mod`, `Cargo.toml`, `composer.json`, `pom.xml`, `build.gradle*`, `*.csproj`, `Makefile`) and the CI config. Find the commands that already exist for format, lint, type check and test.
 3. Work out the **check command**: the one command that runs everything CI runs (for example `make check`, `pnpm check`, `uv run poe check`). If there is none, propose adding one to the existing task runner and show the exact change. Do not add it without the human's yes.
 4. List what you will create, then wait for a go-ahead. Skip any file that already exists and say so; never overwrite.
-   - `.pg/` with `state/` (add `.pg/state/` to `.gitignore`),
+   - `.pg/` with `state/` (add `.pg/state/` and `.pg/gate/` to `.gitignore`),
    - `docs/workflow.md`, `docs/backlog.md`, `docs/adr/README.md`, `docs/adr/template.md`,
    - `docs/features/_templates/{spec,plan,review}.md`,
    - `docs/standards/{general,testing,security}.md`, always,
