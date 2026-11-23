@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.7.0 (2026-11-23)
+
 - `/pg:research`: a read-only investigation of a question or a feature's area, with file references for what exists, what to reuse and what is risky. For a feature it writes `research.md`, and `/pg:plan` starts from it instead of researching again.
 - `/pg:eval-run` and the `pg:eval-analyst` agent: run the project's evaluation suite, compare every metric with its target and the last baseline, explain regressions by the stage where they start, and record the run in `review.md` or `docs/evals/`. `/pg:init` adds an `Eval:` line to the "pg workflow" section when the project has a suite.
 - `/pg:audit`: audits the whole repository in one area (security, ai, privacy, architecture, dead-code, performance, accessibility) or all of them, with verified findings that carry an id, severity, location, rule, evidence, fix and size, ready for the backlog.
