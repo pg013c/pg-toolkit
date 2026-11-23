@@ -1,7 +1,7 @@
 ---
 name: ship
 description: Finish a feature branch - prove every acceptance criterion with its test, check that review findings are resolved, update the docs the change affected, then push and open a pull request after the human's go-ahead. Use after /pg:review findings are resolved.
-argument-hint: F-xx
+argument-hint: "F-xx"
 ---
 
 # /pg:ship F-xx

@@ -3,14 +3,16 @@
   "name": "pg-toolkit",
   "description": "Personal Claude Code toolkit of Przemysław Golec.",
   "owner": {
-    "name": "Przemysław Golec"
+    "name": "Przemysław Golec",
+    "url": "https://github.com/pg013c"
   },
   "plugins": [
     {
       "name": "pg",
-      "description": "Spec-first, test-first development workflow: spec, plan, red/green TDD with a guard hook, independent review, ship.",
+      "description": "Spec-first, test-first workflow for coding agents (spec, plan, red/green TDD, independent review, ship), plus audits, evals, a CI release gate, reports, decks, workshops and guard hooks.",
       "source": "./plugins/pg",
-      "category": "workflow"
+      "category": "workflow",
+      "homepage": "https://github.com/pg013c/pg-toolkit"
     }
   ]
 }

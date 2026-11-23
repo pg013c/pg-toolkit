@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## 0.11.0 (2026-11-24)
+
+- `examples/`: one invented feature followed through spec, plan, TDD, review and ship, with the history it leaves.
+- `CONTRIBUTING.md` and `scripts/release.sh` (`prepare` makes the release commit, `publish` tags it and publishes the GitHub release).
+- The plugin has an icon, homepage and repository links; the README has CI, release and licence badges.
+- CI now runs `claude plugin validate` (strict for the marketplace) and checks that the README lists every skill, no missing ones, and the right counts.
+
 ## 0.10.0 (2026-11-24)
 
 - `git-guard` hook: in pg projects, refuses force pushes, pushes to the main branch and `gh pr merge`; `.pg/allow` lifts each rule (`force-push`, `push-main`, `merge`).

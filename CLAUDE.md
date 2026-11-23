@@ -6,7 +6,8 @@ A Claude Code marketplace with one plugin, `pg`: skills, an agent and hooks for 
 
 - `.claude-plugin/marketplace.json`: the marketplace (`pg-toolkit`).
 - `plugins/pg/`: the plugin. `skills/<name>/SKILL.md` is invoked as `/pg:<name>`; `agents/`, `hooks/` (`hooks.json` plus scripts), `templates/` (files `/pg:init` copies into a project).
-- `tests/`: shell tests for the hooks. `scripts/check.sh` runs every check CI runs.
+- `tests/`: shell tests for the hooks. `scripts/check.sh` runs every check CI runs; `scripts/release.sh` prepares and publishes releases.
+- `examples/`: an invented feature walked through the workflow, for readers of the README.
 
 ## Rules
 
@@ -23,7 +24,7 @@ A Claude Code marketplace with one plugin, `pg`: skills, an agent and hooks for 
 
 - Semantic versioning of the `pg` plugin, in `plugins/pg/.claude-plugin/plugin.json`. While it is 0.x: a new command, agent, hook, template or standard bumps the minor version; a fix or wording change bumps the patch. A change that needs action from users (a command removed or renamed, a changed file layout in projects) bumps the minor while 0.x and the major from 1.0.0, and gets an "After updating" note in the changelog.
 - Commits add their lines under `## Unreleased`. A pull request with a change a user would notice ends with its own release commit, `chore: release x.y.z`, that bumps `plugin.json` and turns `## Unreleased` into `## x.y.z (YYYY-MM-DD)`: installs from GitHub only see a new version, so unreleased changes do not reach them.
-- Right after the merge, tag the release commit `vx.y.z` and publish a GitHub release with the same changelog section as its notes.
+- Right after the merge, tag the release commit `vx.y.z` and publish a GitHub release with the same changelog section as its notes. `scripts/release.sh prepare <x.y.z>` makes the release commit and `scripts/release.sh publish` does the rest.
 
 ## Checks
 
