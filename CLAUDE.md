@@ -22,9 +22,8 @@ A Claude Code marketplace with one plugin, `pg`: skills, an agent and hooks for 
 ## Versioning
 
 - Semantic versioning of the `pg` plugin, in `plugins/pg/.claude-plugin/plugin.json`. While it is 0.x: a new command, agent, hook, template or standard bumps the minor version; a fix or wording change bumps the patch. A change that needs action from users (a command removed or renamed, a changed file layout in projects) bumps the minor while 0.x and the major from 1.0.0, and gets an "After updating" note in the changelog.
-- Pull requests never change the version. They add their lines under `## Unreleased`.
-- Release right after merging, whenever `## Unreleased` holds a change a user would notice: installs from GitHub only see a new version, so unreleased changes do not reach them.
-- A release is one commit, `chore: release x.y.z`, that bumps `plugin.json` and turns `## Unreleased` into `## x.y.z (YYYY-MM-DD)`. After it is on `main`, tag that commit `vx.y.z` and publish a GitHub release with the same changelog section as its notes.
+- Commits add their lines under `## Unreleased`. A pull request with a change a user would notice ends with its own release commit, `chore: release x.y.z`, that bumps `plugin.json` and turns `## Unreleased` into `## x.y.z (YYYY-MM-DD)`: installs from GitHub only see a new version, so unreleased changes do not reach them.
+- Right after the merge, tag the release commit `vx.y.z` and publish a GitHub release with the same changelog section as its notes.
 
 ## Checks
 
