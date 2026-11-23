@@ -24,7 +24,7 @@ claude plugin marketplace add <path to your clone>
 claude plugin install pg@pg-toolkit
 ```
 
-Check it: `claude plugin details pg@pg-toolkit` lists 21 skills, 2 agents and 2 hooks.
+Check it: `claude plugin details pg@pg-toolkit` lists 25 skills, 2 agents and 2 hooks.
 
 Update an install from GitHub: `claude plugin marketplace update pg-toolkit`, then `claude plugin update pg@pg-toolkit`. Remove: `claude plugin uninstall pg@pg-toolkit`.
 
@@ -91,6 +91,10 @@ The skills run the project's **check command** from `CLAUDE.md` (for example `ma
 | `/pg:audit` | Audits the whole repository in one area or all: security, ai, privacy, architecture, dead-code, performance, accessibility. Every finding verified, with an id, severity, location, rule, evidence, fix and size, ready to become a backlog item. Read-only; `--save` writes the report to `docs/audits/`. |
 | `/pg:release-gate` | Unattended gate for CI: checks the changes against a base and writes a FAIL, WARN or PASS verdict as `gate.json` plus a markdown summary for a pull-request comment. Never asks, never posts. |
 | `/pg:eval-run` | Runs the project's evaluation suite for model behaviour, compares each metric with its target and the last baseline, explains regressions through the `pg:eval-analyst` agent and records the run. |
+| `/pg:report` | A report for a reader who does not read code, grounded in the code, docs and history, in plain language, with every claim tied to an entry in a separate evidence file a developer can check. |
+| `/pg:deck` | A presentation in two approved steps: an outline slide by slide with speaker notes, then one self-contained HTML file that works offline, moves with the keyboard, shows notes and prints to PDF. |
+| `/pg:workshop` | Designs a workshop or training: outcomes, pre-survey, timed agenda, hands-on exercises on participants' own tasks, facilitator guide, feedback survey with a recommendation score and a follow-up plan. |
+| `/pg:mock-interview` | Practise a job interview with the assistant as a recruiter, manager, tech lead or CTO, one question at a time with real follow-ups, then a report with a readiness percentage and better answers built from your own facts. `--talk` rehearses a presentation and its Q&A. |
 | `/pg:ideate` | Talks an idea for an app, a game or a tool through before anything is built: a report in chat with how the assistant understands it, strengths, weaknesses, gaps, ways to build it, directions to grow and extra features, refined in later rounds. Writes nothing. |
 | `/pg:brainstorm` | Generates as many ideas as possible around yours: features, variants, related products, directions to grow, markets, ways to earn and wild cards, from several subagents with different creative lenses, merged into numbered clusters in chat. Later rounds give more, expand or combine ideas. Writes nothing. |
 | `/pg:build` | Builds a whole PRD: splits it into features, then takes each one through spec, plan, tdd, review and ship, every stage in its own Sonnet subagent. You approve the split, each spec, each plan and each review triage; pushing waits for your yes. |
