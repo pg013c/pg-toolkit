@@ -44,6 +44,8 @@ The human approves at four points: the spec, the plan, the review triage and the
 .pg/                       marker that turns the hooks on for this repository
 .pg/state/                 TDD phase (gitignored)
 .pg/test-paths             optional: your test globs, one per line, replacing the defaults
+.pg/allow                  optional: git-guard rules lifted here (force-push, push-main, merge)
+.pg/protected              optional: ports, paths and commands of your own running instance
 CLAUDE.md                  a "pg workflow" section: check command, test command, main branch
 docs/workflow.md           the process
 docs/backlog.md            features F-01, F-02, ... and their status
@@ -103,16 +105,18 @@ The skills run the project's **check command** from `CLAUDE.md` (for example `ma
 | `/pg:cleanup` | Lists stale local branches and worktrees with what would be lost, and deletes only what you approve, printing how to restore each branch. |
 | `/pg:ideate` | Talks an idea for an app, a game or a tool through before anything is built: a report in chat with how the assistant understands it, strengths, weaknesses, gaps, ways to build it, directions to grow and extra features, refined in later rounds. Writes nothing. |
 | `/pg:brainstorm` | Generates as many ideas as possible around yours: features, variants, related products, directions to grow, markets, ways to earn and wild cards, from several subagents with different creative lenses, merged into numbered clusters in chat. Later rounds give more, expand or combine ideas. Writes nothing. |
-| `/pg:build` | Builds a whole PRD: splits it into features, then takes each one through spec, plan, tdd, review and ship, every stage in its own Sonnet subagent. You approve the split, each spec, each plan and each review triage; pushing waits for your yes. |
+| `/pg:build` | Builds a whole PRD (`--autopilot` answers the gates itself, recording every decision): splits it into features, then takes each one through spec, plan, tdd, review and ship, every stage in its own Sonnet subagent. You approve the split, each spec, each plan and each review triage; pushing waits for your yes. |
 | `/pg:prd` | Turns an idea, and any notes, code or old documents about it, into a build-ready PRD/BRD for a coding agent through an iterative interview: checks six areas, points out bottlenecks, proposes options with a recommendation and ends every reply with a readiness percentage. On your command writes the document in one markdown block. Writes nothing without your yes. |
 | `/pg:improve-prompt` | Rewrites a prompt as a prompt engineer so a model understands it without guessing: goal, context, structure, constraints, output format and definition of done. Returns the improved prompt in one copyable block with what changed and why, refined in later rounds. Writes nothing. |
 | `/pg:discuss` | Talks a task through before doing it: how it understands the task, two or three approaches with pros and cons, a recommendation, risks and questions, grounded read-only in the repository. Continued round by round, ends with a summary of what was agreed. No code, files or artifacts. |
 
 ## Hooks
 
-Both act only in a repository with a `.pg/` directory.
+All act only in a repository with a `.pg/` directory.
 
 - **tdd-guard** (before edits): while `.pg/state/tdd-phase` says `green`, test files are read-only, so the code commit cannot quietly change the tests it must pass. `/pg:tdd` and `/pg:quick` set and clear the phase. Test paths: defaults for common stacks (`tests/`, `__tests__/`, `*.test.*`, `*.spec.*`, `*_test.go`, `test_*.py`, `*Test.java`, ...; full list in `plugins/pg/hooks/lib/test-paths.sh`), or `.pg/test-paths`, one glob per line, where `*` also matches `/`. If a session gets stuck in green, `rm .pg/state/tdd-phase` unlocks it.
+- **git-guard** (before shell commands): refuses force pushes, pushes to the main branch (`main` or `master`, named or as the current branch) and `gh pr merge`, so the human stays the one who merges. A line in `.pg/allow` lifts a rule for that repository: `force-push`, `push-main`, `merge` (for example `push-main` in a solo repository that works on main).
+- **protect-instance** (before shell commands): refuses commands that would stop or change the instance you work with, listed in `.pg/protected`, one per line: `port 4600` (killing whatever listens on it), `path ~/.app-data` (removing or moving it), `command pnpm app:*` (running a matching command). The agent then uses a throwaway data directory and a free port instead.
 - **format-on-edit** (after edits): runs the formatter of the project that owns the file: prettier, ruff, gofmt or rustfmt. A missing formatter is skipped.
 
 ## Agents

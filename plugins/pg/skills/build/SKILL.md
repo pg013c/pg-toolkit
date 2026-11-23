@@ -1,14 +1,25 @@
 ---
 name: build
 description: Build what a PRD or requirements document describes, in one command - split it into features, then take each feature through the whole pg workflow (spec, plan, tdd step by step, review, ship) with every stage run by its own subagent on the Sonnet model, while the conversation coordinates and the human approves the split, each spec, each plan and each review triage. Use when you have a PRD for a repository that uses the pg workflow and want it built end to end. Not for compiling a project or fixing a broken build.
-argument-hint: "<path to a PRD or requirements document, or the pasted text>"
+argument-hint: "<path to a PRD or requirements document, or the pasted text> [--autopilot]"
 ---
 
-# /pg:build <PRD>
+# /pg:build <PRD> [--autopilot]
 
 Runs the pg workflow for a whole PRD. The conversation is the coordinator: it starts subagents, keeps only their summaries, and brings every question and approval to the human. Each stage is done by the stage's own skill, read from this skill's sibling folders (`../spec/SKILL.md`, `../plan/SKILL.md`, `../tdd/SKILL.md`, `../ship/SKILL.md`).
 
 The human approves at four gates: the feature split, each spec, each plan and each review triage. Pushing and opening a pull request waits for an explicit yes per feature. Nothing is merged.
+
+## Autopilot
+
+With `--autopilot`, and only after the human confirms it in reply to a one-line question that says what it means, the coordinator answers gates 1 to 4 itself with its own recommendation, and pushes and opens each pull request without asking. Each auto-approval is written into the document it approves (the split into `docs/backlog.md`, the others into `spec.md`, `plan.md` and `review.md`) as `Approved on autopilot, <date>: <the recommendation taken and why>`, so the human can review every decision afterwards. Autopilot still stops and asks for:
+
+- anything outside the workflow: sending messages, outside services, payments, deleting data, rewriting history;
+- a stage that stops on its own (a test that looks wrong, a spec or plan that does not fit, a failing check it cannot fix in one attempt);
+- a decision that needs an ADR with real alternatives, a new dependency or service, or a change to the standards;
+- a review finding of severity `blocker`, which it fixes rather than backlogs or rejects.
+
+A wrong test found during green is fixed in its own `test(...)` commit that says why, as the stage skills require; the subagent may do that on autopilot only when the spec states the expected behaviour plainly. Merging stays with the human unless the project's `.pg/allow` lists `merge`. Autopilot lasts for this run only.
 
 ## Subagents
 
@@ -38,8 +49,8 @@ The human approves at four gates: the feature split, each spec, each plan and ea
 
 ## Rules
 
-- Never skip a gate, even when the human says to keep going: a go-ahead covers the gate it answers.
+- Never skip a gate, even when the human says to keep going: a go-ahead covers the gate it answers. Only a confirmed `--autopilot` answers gates, and it records every answer.
 - The stage skills are the source of truth. When this skill and a stage skill differ, follow the stage skill, except that subagents return to the coordinator instead of waiting.
 - Keep the conversation small: summaries and paths, not file contents or tool output.
-- Never merge, rebase or force-push. Changes to a base branch after a dependent branch was cut are the human's call.
+- Never rebase or force-push, and never merge unless autopilot is on and `.pg/allow` lists `merge`. Changes to a base branch after a dependent branch was cut are the human's call.
 - Running it again with the same PRD resumes: features with backlog status `done` are skipped, the rest continue from their status and the plan's ticks.
