@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## 0.7.2 (2026-11-23)
+
+- `/pg:eval-run`, from a real run: picks the suite when a project has several eval scripts, accepts an SDK or CLI login as the credential, asks before the first paid run with the case count and cost, keeps stdout-only results, finds baselines wherever the project keeps them (also another model's), tells a failure from a regression and a model comparison, records the run in the project's existing place, and never reruns a paid suite without a yes.
+- `pg:eval-analyst` gets the eval command and traces each failing check through the scorer and the code that sets the checked field before blaming the prompt or model.
+
 ## 0.7.1 (2026-11-23)
 
 - `/pg:audit`: finding ids are `<PREFIX>-A<n>` (for example `AI-A1`) so they never clash with rule ids, with fixed prefixes per area; severity and risk are defined; evaluation suites and anything that costs money are never run; disproved and unchecked candidates are kept apart; each finding shows its size and any extra locations.
