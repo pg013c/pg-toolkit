@@ -35,7 +35,9 @@ Built to run headless, for example `claude -p "/pg:release-gate origin/main --ou
    }
    ```
 
-   and `<out>/gate.md`: the verdict with a one-line reason, the checks line, a table of critical and warning findings, notices collapsed in a `<details>` block, and a first line `<!-- pg:release-gate -->` so a CI step can find and update its own earlier comment instead of adding a new one.
+   Titles are at most about twelve words; detail goes in `fix` or the markdown. `rule` is the rule id, or the standard's name when the project's rules have no ids.
+
+   Then `<out>/gate.md`: the verdict with a one-line reason, the checks line, a table of critical and warning findings (left out when there are none), notices collapsed in a `<details>` block, and a first line `<!-- pg:release-gate -->` so a CI step can find and update its own earlier comment instead of adding a new one.
 8. Print the markdown summary and finish. The CI job decides what to do with the verdict.
 
 ## In CI
