@@ -8,29 +8,29 @@ argument-hint: "[topic]"
 
 ## Steps
 
-1. Collect what happened in this session: the conversation, `git log` since the session started (or since the last progress note), `git status`, open pull requests, decisions recorded as ADRs, feature docs touched.
-2. Write `docs/progress/YYYY-MM-DD-<slug>.md` (slug from the topic or the main piece of work; a suffix when the file exists):
+1. Collect what happened in this session: the conversation; the commits it made (from the conversation; if unsure, since the last note in `docs/progress/`, else ask which range); `git status`; open pull requests (skip without a remote or `gh`); decisions recorded as ADRs; feature docs touched.
+2. Write `docs/progress/YYYY-MM-DD-<slug>.md` (create the folder if needed; slug from the topic or the main piece of work; a suffix when the file exists):
 
    ```markdown
    # <title>
 
-   Date: <YYYY-MM-DD> · Branch: <branch> · Commits: <first>..<last>
+   Date: <YYYY-MM-DD> · Branch: <branch> · Commits: <oldest>^..<newest>, or a list of commit ids when merges are involved
 
    ## Done
    - <what changed, one line each, with the commit, PR or file>
 
-   ## Decided
+   ## Decided (omit if empty)
    - <decision and why, or the ADR>
 
-   ## Not done / open
-   - <unfinished work, failing checks, questions waiting for someone>
+   ## Not done / open (omit if empty)
+   - <unfinished work, failing checks, questions waiting for someone; uncommitted: <files>>
 
    ## Next
    1. <the first concrete step for whoever picks this up>
    ```
 
-   Facts only, each traceable to a commit, file or message; uncommitted work is listed as such.
-3. Commit `docs(progress): <slug>` on the current branch, unless the user says not to. Report the path.
+   Facts only, each traceable to a commit, file or message. With nothing done, Done says "no changes".
+3. Commit `docs(progress): <slug>` on the current branch, unless the user says not to; if that branch is the main branch and the project forbids direct commits, ask. Report the path.
 
 ## Rules
 
