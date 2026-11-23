@@ -1,5 +1,7 @@
 # pg-toolkit
 
+[![CI](https://github.com/pg013c/pg-toolkit/actions/workflows/ci.yml/badge.svg)](https://github.com/pg013c/pg-toolkit/actions/workflows/ci.yml) [![Release](https://img.shields.io/github/v/release/pg013c/pg-toolkit)](https://github.com/pg013c/pg-toolkit/releases) [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+
 My Claude Code toolkit: the skills, agent and hooks I carry from project to project. It packages one way of working with a coding agent: the agent proposes and builds, the human approves at the spec, the plan, the review triage and the merge, and every behaviour change lands test-first, visible in git history.
 
 ## Requirements
@@ -37,6 +39,10 @@ In the repository you work on, start Claude Code and run:
 3. A small fix or chore: `/pg:quick <what to change>`. If it is not small, it says so and suggests `/pg:spec`.
 
 The human approves at four points: the spec, the plan, the review triage and the merge. Skills commit their own work after each approval; pushing and opening a pull request always waits for an explicit yes, and nothing is ever merged by the agent.
+
+## Example
+
+[`examples/`](examples/README.md) follows one invented feature through the whole workflow: the spec, the plan, the review and the git history each stage leaves behind, including the moment the TDD guard stops the agent from loosening a test.
 
 ## What `/pg:init` adds to a project
 
@@ -130,7 +136,7 @@ All act only in a repository with a `.pg/` directory.
 scripts/check.sh
 ```
 
-Runs the hook tests, JSON and frontmatter checks, `shellcheck` and `claude plugin validate` when installed; CI runs the same. Hook changes are test-first, and nothing is copied from employer or client material; see [CLAUDE.md](CLAUDE.md). Changes are listed in [CHANGELOG.md](CHANGELOG.md).
+Runs the hook tests, JSON and frontmatter checks, `shellcheck` and `claude plugin validate` when installed; CI runs the same. Hook changes are test-first, and nothing is copied from employer or client material; see [CLAUDE.md](CLAUDE.md). Changes are listed in [CHANGELOG.md](CHANGELOG.md); how to contribute and release is in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Licence
 
