@@ -13,5 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Claude Code (for claude plugin validate; no credentials needed)
+        run: npm install -g @anthropic-ai/claude-code@2.1.311
       - name: Checks
         run: scripts/check.sh
