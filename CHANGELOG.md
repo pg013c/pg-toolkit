@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- `/pg:research`: a read-only investigation of a question or a feature's area, with file references for what exists, what to reuse and what is risky. For a feature it writes `research.md`, and `/pg:plan` starts from it instead of researching again.
+- `/pg:eval-run` and the `pg:eval-analyst` agent: run the project's evaluation suite, compare every metric with its target and the last baseline, explain regressions by the stage where they start, and record the run in `review.md` or `docs/evals/`. `/pg:init` adds an `Eval:` line to the "pg workflow" section when the project has a suite.
+- `/pg:audit`: audits the whole repository in one area (security, ai, privacy, architecture, dead-code, performance, accessibility) or all of them, with verified findings that carry an id, severity, location, rule, evidence, fix and size, ready for the backlog.
+- `/pg:release-gate`: an unattended gate for CI that writes a FAIL, WARN or PASS verdict as `gate.json` and a markdown summary for a pull-request comment. `/pg:init` gitignores `.pg/gate/`, its default output folder.
+- Versioning: a pull request now ends with its own release commit; the tag and GitHub release follow the merge.
+
+After updating: in a project set up earlier, add `.pg/gate/` to `.gitignore` if you run `/pg:release-gate` there without `--out`.
+
 ## 0.6.1 (2026-11-23)
 
 - Removed `routines/` (the daily digest prompts). They were never part of the plugin and are no longer maintained here.

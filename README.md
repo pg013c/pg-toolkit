@@ -24,7 +24,7 @@ claude plugin marketplace add <path to your clone>
 claude plugin install pg@pg-toolkit
 ```
 
-Check it: `claude plugin details pg@pg-toolkit` lists 17 skills, 1 agent and 2 hooks.
+Check it: `claude plugin details pg@pg-toolkit` lists 21 skills, 2 agents and 2 hooks.
 
 Update an install from GitHub: `claude plugin marketplace update pg-toolkit`, then `claude plugin update pg@pg-toolkit`. Remove: `claude plugin uninstall pg@pg-toolkit`.
 
@@ -79,6 +79,7 @@ The skills run the project's **check command** from `CLAUDE.md` (for example `ma
 | `/pg:init` | Sets up a repository: `.pg/`, workflow, backlog, ADR and feature templates, baseline standards, the check command in `CLAUDE.md`. `--minimal` for a time-boxed task. |
 | `/pg:spec` | Interview, then a one-page spec with testable acceptance criteria. |
 | `/pg:plan` | Research, then a plan of red/green steps, each naming its tests first. |
+| `/pg:research` | Read-only investigation of a question or a feature's area: what exists, what to reuse, what is risky, with file references. For a feature it writes `research.md`, which `/pg:plan` starts from. |
 | `/pg:tdd` | One plan step or review finding: a `test(...)` commit that fails, then a `feat(...)` commit that passes. |
 | `/pg:review` | Independent review by the `pg:reviewer` agent in a fresh context; findings verified and triaged by the human. |
 | `/pg:ship` | Proves every acceptance criterion, updates docs, opens the pull request after your yes. Without a git remote it writes `SUBMISSION.md` instead. |
@@ -87,6 +88,9 @@ The skills run the project's **check command** from `CLAUDE.md` (for example `ma
 | `/pg:new-command` | Adds one or more `/pg:*` commands to this toolkit from a description of what each should do, then commits on a branch and opens a pull request to `main`. |
 | `/pg:slack-triage` | Reads the Slack messages an instruction points at and writes a sectioned report in chat, one section per item: topic, quoted fragment, the concrete problem, first analysis and the action for you. Read-only. |
 | `/pg:audit-branch` | Audits one branch against a base before merging: security, error handling and logs, compliance, architecture with build and tests run, and merge risks. Writes a report in chat with a merge-readiness percentage, risk per area and what to fix. Read-only. |
+| `/pg:audit` | Audits the whole repository in one area or all: security, ai, privacy, architecture, dead-code, performance, accessibility. Every finding verified, with an id, severity, location, rule, evidence, fix and size, ready to become a backlog item. Read-only; `--save` writes the report to `docs/audits/`. |
+| `/pg:release-gate` | Unattended gate for CI: checks the changes against a base and writes a FAIL, WARN or PASS verdict as `gate.json` plus a markdown summary for a pull-request comment. Never asks, never posts. |
+| `/pg:eval-run` | Runs the project's evaluation suite for model behaviour, compares each metric with its target and the last baseline, explains regressions through the `pg:eval-analyst` agent and records the run. |
 | `/pg:ideate` | Talks an idea for an app, a game or a tool through before anything is built: a report in chat with how the assistant understands it, strengths, weaknesses, gaps, ways to build it, directions to grow and extra features, refined in later rounds. Writes nothing. |
 | `/pg:brainstorm` | Generates as many ideas as possible around yours: features, variants, related products, directions to grow, markets, ways to earn and wild cards, from several subagents with different creative lenses, merged into numbered clusters in chat. Later rounds give more, expand or combine ideas. Writes nothing. |
 | `/pg:build` | Builds a whole PRD: splits it into features, then takes each one through spec, plan, tdd, review and ship, every stage in its own Sonnet subagent. You approve the split, each spec, each plan and each review triage; pushing waits for your yes. |
@@ -101,9 +105,10 @@ Both act only in a repository with a `.pg/` directory.
 - **tdd-guard** (before edits): while `.pg/state/tdd-phase` says `green`, test files are read-only, so the code commit cannot quietly change the tests it must pass. `/pg:tdd` and `/pg:quick` set and clear the phase. Test paths: defaults for common stacks (`tests/`, `__tests__/`, `*.test.*`, `*.spec.*`, `*_test.go`, `test_*.py`, `*Test.java`, ...; full list in `plugins/pg/hooks/lib/test-paths.sh`), or `.pg/test-paths`, one glob per line, where `*` also matches `/`. If a session gets stuck in green, `rm .pg/state/tdd-phase` unlocks it.
 - **format-on-edit** (after edits): runs the formatter of the project that owns the file: prettier, ruff, gofmt or rustfmt. A missing formatter is skipped.
 
-## Agent
+## Agents
 
 - **pg:reviewer**: read-only, started by `/pg:review` with only the git range, the spec, the plan and the standards, never the conversation that built the change. Checks correctness, security and AI (against the OWASP lists the standards map), privacy, design, performance, accessibility, tests and maintainability, against whichever standards the project has. Returns findings with severity, location, the rule broken and a fix.
+- **pg:eval-analyst**: read-only, started by `/pg:eval-run` when a metric misses its target or regresses. Groups the failing cases, follows a few end to end and says where each group fails: retrieval, ranking or context, the model, output handling, or the case itself.
 
 ## Development
 

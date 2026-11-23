@@ -13,7 +13,7 @@ How changes are made in this repository, with a coding agent and a human. The ag
 | Fix | `/pg:tdd F-xx <finding>` | red/green pair per finding | |
 | Ship | `/pg:ship F-xx` | pull request | merges |
 
-Small fixes and chores skip the spec and plan: `/pg:quick <what>`.
+Small fixes and chores skip the spec and plan: `/pg:quick <what>`. Unfamiliar code: `/pg:research F-xx` before the plan. A change to a prompt, a tool schema, retrieval or the model: `/pg:eval-run F-xx` before the review.
 
 ## 2. Test first, visible in history
 
