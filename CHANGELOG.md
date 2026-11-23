@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.6.1 (2026-11-23)
+
 - Removed `routines/` (the daily digest prompts). They were never part of the plugin and are no longer maintained here.
 
 After updating: if you created scheduled tasks from `routines/`, they keep working; copy the prompts from the 0.6.0 tag if you want them again.
