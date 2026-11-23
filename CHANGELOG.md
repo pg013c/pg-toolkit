@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.8.0 (2026-11-23)
+
 - `/pg:report`: a plain-language report for a reader who does not read code, with every claim tied to an entry in a separate evidence file.
 - `/pg:deck`: an outline you approve slide by slide, then one self-contained HTML presentation with keyboard navigation, speaker notes and a print-to-PDF layout.
 - `/pg:workshop`: a workshop or training plan in a folder of markdown files: outcomes, pre-survey, timed agenda, exercises, facilitator guide, feedback survey and follow-up.
