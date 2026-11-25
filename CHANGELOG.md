@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- `/pg:analyze-doc`: a five-section report on any document against its purpose: purpose with certainty and clarity, achievement percentage, what is valuable, inconsistencies and suggestions.
+
 ## 0.12.0 (2026-11-24)
 
 - `/pg:project-docs`: a private, local-only archive of a client project's shared documents, channels and dates, with markdown snapshots that `refresh` updates from the stored revision and summarises per document.
