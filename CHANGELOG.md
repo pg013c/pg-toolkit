@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.14.0 (2026-11-25)
+
 - `/pg:adr-recover`: retro ADRs for decisions an existing codebase already shows, proposed with evidence and certainty and written only for the ones you pick.
 - `/pg:refactor`: one behaviour-preserving refactoring per run, from an audit finding, a backlog entry or a named scope, with characterization tests first and tests locked while the code moves.
 
