@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- `/pg:refactor`: one behaviour-preserving refactoring per run, from an audit finding, a backlog entry or a named scope, with characterization tests first and tests locked while the code moves.
+
 ## 0.13.0 (2026-11-25)
 
 - `/pg:deploy`: a deploy recipe worked out from the project's files (`init`), run step by step with preflight, approvals and verification (`apply`), and extended on request (`add-step`).

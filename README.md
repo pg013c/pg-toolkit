@@ -26,7 +26,7 @@ claude plugin marketplace add <path to your clone>
 claude plugin install pg@pg-toolkit
 ```
 
-Check it: `claude plugin details pg@pg-toolkit` lists 34 skills, 2 agents and 2 hooks.
+Check it: `claude plugin details pg@pg-toolkit` lists 35 skills, 2 agents and 2 hooks.
 
 Update an install from GitHub: `claude plugin marketplace update pg-toolkit`, then `claude plugin update pg@pg-toolkit`. Remove: `claude plugin uninstall pg@pg-toolkit`.
 
@@ -97,6 +97,7 @@ The skills run the project's **check command** from `CLAUDE.md` (for example `ma
 | `/pg:slack-triage` | Reads the Slack messages an instruction points at and writes a sectioned report in chat, one section per item: topic, quoted fragment, the concrete problem, first analysis and the action for you. Read-only. |
 | `/pg:audit-branch` | Audits one branch against a base before merging: security, error handling and logs, compliance, architecture with build and tests run, and merge risks. Writes a report in chat with a merge-readiness percentage, risk per area and what to fix. Read-only. |
 | `/pg:audit` | Audits the whole repository in one area or all: security, ai, privacy, architecture, dead-code, performance, accessibility. Every finding verified, with an id, severity, location, rule, evidence, fix and size, ready to become a backlog item. Read-only; `--save` writes the report to `docs/audits/`. |
+| `/pg:refactor` | Restructures code without changing behaviour, from one `/pg:audit` finding, a backlog entry or a named scope: characterization tests pin the current behaviour first, then small `refactor(...)` commits with the tests locked and the checks run after each. Stops when behaviour, a test or an ADR would change. |
 | `/pg:release-gate` | Unattended gate for CI: checks the changes against a base and writes a FAIL, WARN or PASS verdict as `gate.json` plus a markdown summary for a pull-request comment. Never asks, never posts. |
 | `/pg:eval-run` | Runs the project's evaluation suite for model behaviour, compares each metric with its target and the last baseline, explains regressions through the `pg:eval-analyst` agent and records the run. |
 | `/pg:report` | A report for a reader who does not read code, grounded in the code, docs and history, in plain language, with every claim tied to an entry in a separate evidence file a developer can check. |
