@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.15.0 (2026-11-26)
+
 - `/pg:idea-note`: a raw idea written up as a structured half-page note, shown first and saved into the notes repository after a yes.
 - `/pg:problem-to-app`: three worked-out product ideas for a given problem, each in a different form, with MVP, monetisation, competitors, risk and a recommendation.
 
