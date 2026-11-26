@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- `/pg:pr-review --auto [--decide]`: unattended mode for a scheduler. `--auto` posts review comments on PRs that request your review or are already followed; `--decide` also requests changes and approves only behind hard gates (score, green CI and checks, no sensitive paths, settings read from the default branch), with a cap on rounds and escalation to you.
+
 ## 0.17.0 (2026-11-26)
 
 - `/pg:pr-review`: fast-forwards the local base branch before the review, and at the end offers to follow the pull requests; a followed one is reviewed again (`--follow-up`) when new commits, comments or reviews arrive, against the previous findings.
