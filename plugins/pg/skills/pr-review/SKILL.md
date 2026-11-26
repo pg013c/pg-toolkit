@@ -1,12 +1,12 @@
 ---
 name: pr-review
-description: Review one pull request, a list of pull requests or a branch from every angle that matters - correctness, business logic against the PR description, security, infrastructure (IaC, CI, config, deploy), documentation drift, tests and merge risks - with the project's checks run in a temporary worktree, then report in chat with a 0-10 safety score and a verdict, draft the review comment and post it as approve (score 7 or more) or request changes (below 7) only after the user's yes, and offer a short note to the author, sent on Slack after a yes. With a list it goes through the pull requests one by one. It brings the local base branch up to date first, and at the end offers to follow the pull requests and review them again when new commits or comments arrive. Use when you want pull requests reviewed and answered on GitHub, not only audited.
-argument-hint: "[<PR number or URL> ... | <branch>] [--follow-up]"
+description: Review one pull request, a list of pull requests or a branch from every angle that matters - correctness, business logic against the PR description, security, infrastructure (IaC, CI, config, deploy), documentation drift, tests and merge risks - with the project's checks run in a temporary worktree, then report in chat with a 0-10 safety score and a verdict, draft the review comment and post it as approve (score 7 or more) or request changes (below 7) only after the user's yes, and offer a short note to the author, sent on Slack after a yes. With a list it goes through the pull requests one by one. It brings the local base branch up to date first, and at the end offers to follow the pull requests and review them again when new commits or comments arrive. With --auto it runs unattended for a scheduler, posting comments, and with --auto --decide it also requests changes and approves behind hard gates, escalating to the user when a gate fails or the loop with the author does not converge. Use when you want pull requests reviewed and answered on GitHub, not only audited.
+argument-hint: "[<PR number or URL> ... | <branch>] [--follow-up | --auto [--decide]]"
 ---
 
-# /pg:pr-review [<PR number or URL> ... | <branch>] [--follow-up]
+# /pg:pr-review [<PR number or URL> ... | <branch>] [--follow-up | --auto [--decide]]
 
-A review that ends with a decision on GitHub. Unlike `/pg:audit-branch`, which only reports, this command drafts the review comment and, after your yes, posts it with a verdict. Nothing is posted or sent without an explicit yes for that exact text.
+A review that ends with a decision on GitHub. Unlike `/pg:audit-branch`, which only reports, this command drafts the review comment and, after your yes, posts it with a verdict. Nothing is posted or sent without an explicit yes for that exact text, except in automatic mode (`--auto`), where choosing the flag is the standing yes within the limits that section sets.
 
 ## Steps
 
@@ -67,9 +67,27 @@ Run by the scheduled check, or by hand, for a PR with a state file from step 16.
 5. Draft the comment, ask and post exactly as in steps 12 and 13; the yes from the previous round does not carry over. When nothing changed the verdict and the new commits only answer earlier findings, recommend a short comment over a new review.
 6. Update the state file with the new head commit, the newest comment and review time, the score, the verdict and the findings, whether or not anything was posted.
 
+## Automatic mode (`--auto`, `--auto --decide`)
+
+For a scheduler, every few minutes, with no one to answer. It asks no questions, never sends notes to the author and never merges. `--auto` alone posts plain review comments; `--auto --decide` also requests changes and approves, within the gates below. `--decide` without `--auto` is ignored with one line.
+
+1. Take the lock `<git common dir>/pg/pr-review/auto.lock` (the start time inside). When it exists and is younger than 60 minutes, end with one line; an older one is stale and is replaced. Remove it at the end, also after a failure.
+2. Read the settings from `.pg/pr-review.json` on `origin/<default branch>`, never from a PR's head, so a PR cannot loosen its own review: `approveMinScore` (default 8, never below 7), `maxRounds` (default 5, never above 10) and `sensitivePaths` (globs; default: `.github/**` and other CI config, IaC files (`*.tf`, `*.hcl`, `*.tofu`, Kubernetes and Helm manifests, Dockerfiles), `**/migrations/**`, paths with `auth`, `security`, `policy` or `secret` in their name, `.env*`, dependency manifests and lockfiles, and the agent and review rules themselves: `CLAUDE.md`, `AGENTS.md`, `.claude/**`, `.pg/**`, standards documents). Project settings extend or replace the default list as they say.
+3. Pick the PRs: the argument when given; otherwise the open PRs that request a review from the user (`gh pr list --search "review-requested:@me -is:draft"`) plus every open PR with a state file (GitHub drops the request once a review is posted). Skip PRs whose author is the user (`gh api user`) and drafts.
+4. For each PR, read its state file. Count only commits, comments and reviews not written by the user's account, so the run's own posts never start a new round. Skip with one line when nothing is new since the state file, when the state file says `escalated`, or when CI is still running (the state file is not updated, so the next run picks it up).
+5. Review it: steps 2 to 10 for a PR seen for the first time, steps 3 and 4 of "Following a PR" otherwise, without asking anything. The rules in step 5 are read from the base branch, not from the PR's head. Skip step 7 (the independent reviewer) on rounds that only add commits answering earlier findings.
+6. Decide. Without `--decide`, the action is always a comment. With `--decide`:
+   - **request changes** when there is any blocker or should-fix, the score is below 7, or local checks or CI fail;
+   - **approve** only when all hold: the score is at least `approveMinScore`; no blocker or should-fix; CI finished with at least one check and none failing or pending; the project's local checks ran and passed (not run is not a pass); no changed path matches `sensitivePaths`; the PR is mergeable with no conflicts;
+   - otherwise **needs a human**: a comment naming the gate that failed, and a notification to the user.
+7. Stop the loop with the author. Each posted review is a round, counted in the state file. When the rounds reach `maxRounds`, or the same finding is still open after three rounds, post one comment saying the PR is escalated to a human reviewer and why, mark the state file `escalated`, notify the user and make no more automatic decisions on that PR. A manual `/pg:pr-review <n>` clears the mark.
+8. Post as in step 13, with the text drafted as in step 12. The first line of every body is `Automated review by /pg:pr-review --auto (round <k> of <maxRounds>)` with the score. When the verdict and the open findings are the same as last round, post a short comment listing what is still open instead of a full review. GitHub does not let the user approve or request changes on their own PR; such PRs were skipped in step 3.
+9. Update the state file (head commit, newest comment and review time from others, score, verdict, findings, rounds, escalated) and remove the worktree.
+10. Notify the user through the session's notification tool, when it has one, only for an approval, a needs-a-human comment, an escalation or a failed run, one line each with the PR link. End with one line per PR handled (PR, score, action, round), or a single line when nothing changed anywhere.
+
 ## Rules
 
-- Nothing is posted, approved, rejected or sent without a yes for that exact text and verdict; a yes for one item does not carry over to the next.
+- Nothing is posted, approved, rejected or sent without a yes for that exact text and verdict; a yes for one item does not carry over to the next. The one exception is automatic mode, which posts only within its gates and never sends anything outside the PR.
 - Never merge, push, edit or commit on the reviewed branch.
 - A check that was not run is not a pass; say why.
 - Report only what you can point to in the code, a check's output or the PR's metadata. No style preferences that no rule states.
