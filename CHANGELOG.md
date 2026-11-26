@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- `/pg:pr-review`: fast-forwards the local base branch before the review, and at the end offers to follow the pull requests; a followed one is reviewed again (`--follow-up`) when new commits, comments or reviews arrive, against the previous findings.
+
 ## 0.16.0 (2026-11-26)
 
 - `/pg:pr-review`: review of one PR, a list or a branch across code, business logic, security, infrastructure, docs and tests, with a 0-10 safety score, a review posted as approve or request changes after your yes, and an optional note to the author.
