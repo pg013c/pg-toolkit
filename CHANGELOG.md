@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- `/pg:idea-note`: a raw idea written up as a structured half-page note, shown first and saved into the notes repository after a yes.
+
 ## 0.14.0 (2026-11-25)
 
 - `/pg:adr-recover`: retro ADRs for decisions an existing codebase already shows, proposed with evidence and certainty and written only for the ones you pick.
