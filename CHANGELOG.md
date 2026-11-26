@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- `/pg:pr-review`: review of one PR, a list or a branch across code, business logic, security, infrastructure, docs and tests, with a 0-10 safety score, a review posted as approve or request changes after your yes, and an optional note to the author.
+
 ## 0.15.0 (2026-11-26)
 
 - `/pg:idea-note`: a raw idea written up as a structured half-page note, shown first and saved into the notes repository after a yes.
