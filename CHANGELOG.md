@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- `/pg:onboard`: a read-only first look at an inherited project, reported in chat: understanding, how to run it, repository state, what is missing before work starts, decisions, questions and a readiness percentage; offers README.md and CLAUDE.md drafts only when they are missing.
+
 ## 0.18.0 (2026-11-26)
 
 - `/pg:pr-review --auto [--decide]`: unattended mode for a scheduler. `--auto` posts review comments on PRs that request your review or are already followed; `--decide` also requests changes and approves only behind hard gates (score, green CI and checks, no sensitive paths, settings read from the default branch), with a cap on rounds and escalation to you.
