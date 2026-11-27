@@ -1,6 +1,6 @@
 {
   "name": "pg",
-  "version": "0.18.0",
+  "version": "0.19.0",
   "description": "Spec-first, test-first workflow for coding agents (spec, plan, red/green TDD, independent review, ship), plus audits, evals, a CI release gate, reports, decks, workshops and guard hooks.",
   "author": {
     "name": "Przemysław Golec"

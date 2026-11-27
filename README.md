@@ -26,7 +26,7 @@ claude plugin marketplace add <path to your clone>
 claude plugin install pg@pg-toolkit
 ```
 
-Check it: `claude plugin details pg@pg-toolkit` lists 39 skills, 2 agents and 2 hooks.
+Check it: `claude plugin details pg@pg-toolkit` lists 40 skills, 2 agents and 2 hooks.
 
 Update an install from GitHub: `claude plugin marketplace update pg-toolkit`, then `claude plugin update pg@pg-toolkit`. Remove: `claude plugin uninstall pg@pg-toolkit`.
 
@@ -94,6 +94,7 @@ The skills run the project's **check command** from `CLAUDE.md` (for example `ma
 | `/pg:quick` | A small fix or chore in one pass, test-first when behaviour changes. |
 | `/pg:adr` | A numbered architecture decision record. |
 | `/pg:adr-recover` | Recovers the decisions an existing codebase already made from its code, configuration, dependencies and history, proposes them with evidence and certainty, and writes the ones you pick as ADRs marked as recorded after the fact. |
+| `/pg:onboard` | First look at a project you take over: reads the code, docs and git history without running anything and reports in chat how it understands the project, how to run it, the state of the repository, what is missing before work can start (security red flags, data-destroying scripts, docs drift, dependency health, tests and CI), decisions, questions for the previous owners and a readiness percentage. Offers to draft `README.md` and `CLAUDE.md` only when they are missing. Read-only. |
 | `/pg:new-command` | Adds one or more `/pg:*` commands to this toolkit from a description of what each should do, then commits on a branch and opens a pull request to `main`. |
 | `/pg:slack-triage` | Reads the Slack messages an instruction points at and writes a sectioned report in chat, one section per item: topic, quoted fragment, the concrete problem, first analysis and the action for you. Read-only. |
 | `/pg:audit-branch` | Audits one branch against a base before merging: security, error handling and logs, compliance, architecture with build and tests run, and merge risks. Writes a report in chat with a merge-readiness percentage, risk per area and what to fix. Read-only. |
