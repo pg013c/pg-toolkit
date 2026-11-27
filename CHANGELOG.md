@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.19.0 (2026-11-27)
+
 - `/pg:onboard`: a read-only first look at an inherited project, reported in chat: understanding, how to run it, repository state, what is missing before work starts, decisions, questions and a readiness percentage; offers README.md and CLAUDE.md drafts only when they are missing.
 
 ## 0.18.0 (2026-11-26)
