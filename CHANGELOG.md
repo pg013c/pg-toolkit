@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 0.20.0 (2026-11-27)
+
+- `/pg:design-system`: a design system and desktop and mobile mockups of every page, built in approved stages (directions, sitemap, system, screens), checked visually and handed off as CSS, Tailwind and JSON tokens with component specs; `--update` applies comments to an earlier result.
+
 ## 0.19.0 (2026-11-27)
 
 - `/pg:onboard`: a read-only first look at an inherited project, reported in chat: understanding, how to run it, repository state, what is missing before work starts, decisions, questions and a readiness percentage; offers README.md and CLAUDE.md drafts only when they are missing.
